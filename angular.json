@@ -37,9 +37,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/css/style-starter.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/assets/js/jquery-3.3.1.min.js",
+              "src/assets/js/lightbox-plus-jquery.min.js",
+              "src/assets/js/owl.carousel.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {

@@ -4,9 +4,15 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// Components
+import { HomeComponent } from './components/home/home.component';
+import { BannerComponent } from './components/banner/banner.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,
