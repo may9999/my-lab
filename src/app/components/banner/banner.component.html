@@ -49,9 +49,10 @@
             <a *ngIf ="authenticate" class="nav-link" [routerLink]="'/email'">Emails </a>
           </li>
         </ul>
-        <button *ngIf ="!authenticate" mat-stroked-button color="primary" style="background-color: #FC501F; color: #FFFFFF; border-color: #FFFFFF;" (click)="openLoginDialog()">
+        <!-- <button *ngIf ="!authenticate" mat-stroked-button color="primary" style="background-color: #FC501F; color: #FFFFFF; border-color: #FFFFFF;" (click)="openLoginDialog()">
           <i class="fa fa-sign-in"></i>&nbsp;Sign In
-        </button>
+        </button> -->
+        <button *ngIf ="!authenticate" mat-raised-button color="primary" (click)="openLoginDialog()">Login</button>
         <button *ngIf ="authenticate" mat-stroked-button color="primary" style="background-color: #FC501F; color: #FFFFFF; border-color: #FFFFFF;" (click)="logoutUser()">
           <i class="fa fa-sign-out"></i>&nbsp;Logout
         </button>
