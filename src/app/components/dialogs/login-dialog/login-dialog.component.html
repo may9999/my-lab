@@ -13,6 +13,7 @@
         <input matInput type="password" name="password" ngModel>
       </mat-form-field>
     </mat-card-content>
+    <p *ngIf="showWarningMessage">Wrong User Name / Password</p>
     <mat-card-actions align="end">
       <button mat-raised-button color="primary" type = "submit">Submit</button>
     </mat-card-actions>

@@ -12,15 +12,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(userName: string, pass: string ): Observable<boolean> {
-    const body = { username: userName, password: pass};
-    return this.http.post<any>(`${environment.apiUrl}/login`, body )
+  login(email: string, pass: string ): Observable<boolean> {
+    const body = { email: email, password: pass};
+    
+    return this.http.post<any>(`${environment.apiUrl}/usr/login`, body )
       .pipe(
         tap(res => this.storeInStorage(res)),
         mapTo(true),
         catchError(error => {
           return of(false);
-        }));
+    }));
   }
 
   forgotPass(userName: string, email: string ): Observable<boolean> {
@@ -64,7 +65,8 @@ export class AuthService {
   }
 
   getJwtToken() {
-    return localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    const storage = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    return storage !== null ? storage : '';
   }
 
   private doLogoutUser() {

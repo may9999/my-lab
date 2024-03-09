@@ -21,31 +21,17 @@ export class LoginDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // loginUser({value, valid}): void {
-  // loginUser(): void {
-  //   this.authService.login(value.userName, value.pass).subscribe(success => {
-  //     if (success) {
-  //       this.showWarningMessage = false;
-  //       this.authService.refreshToken().subscribe( response => {
-  //         window.location.assign('/');
-  //       });
-  //     } else {
-  //       this.showWarningMessage = true;
-  //     }
-  //   });
-  // }
   onSubmit(form: NgForm) {
-    console.log('Your form data : ', form.value);
+    // console.log('Your form data : ', form.value);
     this.authService.login(form.value.userName, form.value.password).subscribe(success => {
-      console.log(success);
-      // if (success) {
-      //   this.showWarningMessage = false;
-      //   this.authService.refreshToken().subscribe( response => {
-      //     window.location.assign('/');
-      //   });
-      // } else {
-      //   this.showWarningMessage = true;
-      // }
+      if (success) {
+        this.showWarningMessage = false;
+        // this.authService.refreshToken().subscribe( response => {
+        //   window.location.assign('/');
+        // });
+      } else {
+        this.showWarningMessage = true;
+      }
     });
   }
 }

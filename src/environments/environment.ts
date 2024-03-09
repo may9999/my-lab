@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://quinces-rp-test.herokuapp.com',
+  // apiUrl: 'https://quinces-rp-test.herokuapp.com',
+  apiUrl: 'http://localhost:3000/api',
 };
 
 export const localStoageKeys = {
