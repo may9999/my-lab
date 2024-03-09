@@ -6,7 +6,7 @@ import { AuthGuard } from './auth/guards/auth.guard';
 
 const routes: Routes = [
   { path: 'landing', component: LandingComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   // { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
   // { path: 'physical-health', component: PhysicalHealthComponent },
   // { path: 'nutritional-health', component: NutritionalHealthComponent },

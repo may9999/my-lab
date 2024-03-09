@@ -66,8 +66,14 @@ export class AuthService {
   }
 
   getJwtToken() {
-    const storage = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
-    return storage !== null ? storage : '';
+    if(typeof window !== 'undefined'){
+      return localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    } else {
+      return false;
+    }
+    // const storage = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    // console.log(storage);
+    // return storage !== null ? storage : '';
   }
 
   private doLogoutUser() {
