@@ -26,9 +26,9 @@ export class LoginDialogComponent implements OnInit {
     this.authService.login(form.value.userName, form.value.password).subscribe(success => {
       if (success) {
         this.showWarningMessage = false;
-        // this.authService.refreshToken().subscribe( response => {
+        this.authService.refreshToken().subscribe( response => {
           window.location.assign('/home');
-        // });
+        });
       } else {
         this.showWarningMessage = true;
       }

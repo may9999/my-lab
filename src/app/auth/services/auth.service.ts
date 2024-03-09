@@ -52,12 +52,13 @@ export class AuthService {
   }
 
   refreshToken() {
+    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
     const headers = new HttpHeaders()
-                  .set('Authorization', ['Bearer ' + localStorage.getItem(localStoageKeys.REFRESH_TOKEN)])
+                  .set('Authorization', [token != null ? token : ''])
                   .set('Content-Type', 'application/json')
                   .set('Accept', 'application/json');
 
-    return this.http.post<any>(`${environment.apiUrl}/token`, {
+    return this.http.post<any>(`${environment.apiUrl}/usr/token`, {
       'token': this.getRefreshToken() }, { headers: headers } )
       .pipe(tap((tokens: Tokens) => {
       this.storeRefreshToken(tokens.accessToken);
