@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, pass: string ): Observable<boolean> {
+  login(email: string, pass: string): Observable<boolean> {
     const body = { email: email, password: pass};
     
     return this.http.post<any>(`${environment.apiUrl}/usr/login`, body )
@@ -22,6 +22,23 @@ export class AuthService {
         catchError(error => {
           return of(false);
     }));
+  }
+
+  logout(): Observable<boolean> {
+    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    const headers = new HttpHeaders()
+                  .set('Authorization', [token != null ? token : ''])
+                  .set('Content-Type', 'application/json')
+                  .set('Accept', 'application/json');
+
+    return this.http.post<any>(`${environment.apiUrl}/usr/logout`, {
+      'token': this.getRefreshToken() }, { headers: headers } )
+      .pipe(tap(() => this.doLogoutUser()),
+        mapTo(true),
+        catchError(error => {
+          alert(error.error);
+          return of(false);
+      }));
   }
 
   forgotPass(userName: string, email: string ): Observable<boolean> {
@@ -35,31 +52,19 @@ export class AuthService {
         }));
   }
 
-  logout() {
-    return this.http.post<any>(`${environment.apiUrl}/logout`, {
-      'token': this.getRefreshToken()})
-      .pipe(
-      tap(() => this.doLogoutUser()),
-      mapTo(true),
-      catchError(error => {
-        alert(error.error);
-        return of(false);
-      }));
-  }
-
   isLoggedIn() {
     return !!this.getJwtToken();
   }
 
   refreshToken() {
-    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    const token = this.getRefreshToken();
     const headers = new HttpHeaders()
                   .set('Authorization', [token != null ? token : ''])
                   .set('Content-Type', 'application/json')
                   .set('Accept', 'application/json');
 
-    return this.http.post<any>(`${environment.apiUrl}/usr/token`, {
-      'token': this.getRefreshToken() }, { headers: headers } )
+    return this.http.post<any>(`${environment.apiUrl}/usr/token`, null, 
+    { headers: headers } )
       .pipe(tap((tokens: Tokens) => {
       this.storeRefreshToken(tokens.accessToken);
     }));
@@ -71,13 +76,11 @@ export class AuthService {
     } else {
       return false;
     }
-    // const storage = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
-    // console.log(storage);
-    // return storage !== null ? storage : '';
   }
 
   private doLogoutUser() {
     localStorage.removeItem(localStoageKeys.ID);
+    localStorage.removeItem(localStoageKeys.REFRESH_TOKEN);
     this.removeTokens();
   }
 

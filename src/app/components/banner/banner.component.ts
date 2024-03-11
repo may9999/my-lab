@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-// import { Router } from '@angular/router';
-// import { AuthService } from 'src/app/auth/services/auth.service';
 import { LoginDialogComponent } from '../dialogs/login-dialog/login-dialog.component';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-banner',
@@ -11,13 +10,13 @@ import { LoginDialogComponent } from '../dialogs/login-dialog/login-dialog.compo
 })
 export class BannerComponent implements OnInit {
   authenticate = false;
-  // isAdmin: boolean;
+  isAdmin: boolean = false;
 
-  constructor(/*private authService: AuthService, */public dialog: MatDialog/*,
+  constructor(private authService: AuthService, public dialog: MatDialog/*,
               private router: Router*/) { }
 
   ngOnInit(): void {
-    // this.authenticate = this.authService.isLoggedIn();
+    this.authenticate = this.authService.isLoggedIn();
     // if (this.authenticate) {
     // }
   }
@@ -33,9 +32,9 @@ export class BannerComponent implements OnInit {
   }
 
   logoutUser() {
-//     this.authService.logout();
-//     this.authenticate = false;
-//     this.isAdmin = false;
-//     window.location.assign('/');
+    this.authenticate = false;
+    this.authService.logout().subscribe(() => {});
+    this.isAdmin = false;
+    window.location.assign('/landing');
  }
 }
