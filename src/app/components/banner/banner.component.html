@@ -43,17 +43,17 @@
             <a class="nav-link" href="contact.html">Reportes</a>
           </li>
           <li class="nav-item">
-            <a *ngIf ="authenticate" class="nav-link" [routerLink]="'/conf'">Admin </a>
+            <a *ngIf ="authenticated" class="nav-link" [routerLink]="'/conf'">Admin </a>
           </li>
           <li class="nav-item">
-            <a *ngIf ="authenticate" class="nav-link" [routerLink]="'/email'">Emails </a>
+            <a *ngIf ="authenticated" class="nav-link" [routerLink]="'/email'">Emails </a>
           </li>
         </ul>
         <!-- <button *ngIf ="!authenticate" mat-stroked-button color="primary" style="background-color: #FC501F; color: #FFFFFF; border-color: #FFFFFF;" (click)="openLoginDialog()">
           <i class="fa fa-sign-in"></i>&nbsp;Sign In
         </button> -->
-        <button *ngIf ="!authenticate" mat-raised-button color="primary" (click)="openLoginDialog()">Login</button>
-        <button *ngIf ="authenticate" mat-stroked-button color="primary" style="background-color: #FC501F; color: #FFFFFF; border-color: #FFFFFF;" (click)="logoutUser()">
+        <button *ngIf ="!authenticated" mat-raised-button color="primary" (click)="openLoginDialog()">Login</button>
+        <button *ngIf ="authenticated" mat-stroked-button color="primary" style="background-color: #FC501F; color: #FFFFFF; border-color: #FFFFFF;" (click)="logoutUser()">
           <i class="fa fa-sign-out"></i>&nbsp;Logout
         </button>
         <!-- <form action="#" class="form-inline position-relative my-2 my-lg-0">

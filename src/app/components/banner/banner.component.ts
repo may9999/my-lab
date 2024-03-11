@@ -9,16 +9,17 @@ import { AuthService } from '../../auth/services/auth.service';
   styleUrls: ['./banner.component.scss']
 })
 export class BannerComponent implements OnInit {
-  authenticate = false;
+  authenticated = false;
   isAdmin: boolean = false;
 
   constructor(private authService: AuthService, public dialog: MatDialog/*,
               private router: Router*/) { }
 
   ngOnInit(): void {
-    this.authenticate = this.authService.isLoggedIn();
-    // if (this.authenticate) {
-    // }
+    this.authenticated = this.authService.isLoggedIn();
+    if (this.authenticated) {
+      console.log('aguevo');
+    }
   }
 
   openLoginDialog() {
@@ -32,7 +33,7 @@ export class BannerComponent implements OnInit {
   }
 
   logoutUser() {
-    this.authenticate = false;
+    this.authenticated = false;
     this.authService.logout().subscribe(() => {});
     this.isAdmin = false;
     window.location.assign('/landing');
