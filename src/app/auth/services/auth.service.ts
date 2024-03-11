@@ -25,14 +25,14 @@ export class AuthService {
   }
 
   logout(): Observable<boolean> {
-    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    const token = this.getRefreshToken();
     const headers = new HttpHeaders()
                   .set('Authorization', [token != null ? token : ''])
                   .set('Content-Type', 'application/json')
                   .set('Accept', 'application/json');
 
-    return this.http.post<any>(`${environment.apiUrl}/usr/logout`, {
-      'token': this.getRefreshToken() }, { headers: headers } )
+    return this.http.post<any>(`${environment.apiUrl}/usr/logout`, null, 
+    { headers: headers })
       .pipe(tap(() => this.doLogoutUser()),
         mapTo(true),
         catchError(error => {
@@ -41,16 +41,16 @@ export class AuthService {
       }));
   }
 
-  forgotPass(userName: string, email: string ): Observable<boolean> {
-    const body = { username: userName, email };
-    return this.http.post<any>(`${environment.apiUrl}/forgot`, body )
-      .pipe(
-        tap(res => this.storeInStorage(res)),
-        mapTo(true),
-        catchError(error => {
-          return of(false);
-        }));
-  }
+  // forgotPass(userName: string, email: string ): Observable<boolean> {
+  //   const body = { username: userName, email };
+  //   return this.http.post<any>(`${environment.apiUrl}/forgot`, body )
+  //     .pipe(
+  //       tap(res => this.storeInStorage(res)),
+  //       mapTo(true),
+  //       catchError(error => {
+  //         return of(false);
+  //       }));
+  // }
 
   isLoggedIn() {
     return !!this.getJwtToken();
@@ -103,24 +103,24 @@ export class AuthService {
     localStorage.removeItem(localStoageKeys.REFRESH_TOKEN);
   }
 
-  changePassword(oldPass: string, newPass: string){
-    const headers = new HttpHeaders()
-                  .set('Authorization', ['Bearer ' + localStorage.getItem(localStoageKeys.REFRESH_TOKEN)])
-                  .set('Content-Type', 'application/json')
-                  .set('Accept', 'application/json');
+  // changePassword(oldPass: string, newPass: string){
+  //   const headers = new HttpHeaders()
+  //                 .set('Authorization', ['Bearer ' + localStorage.getItem(localStoageKeys.REFRESH_TOKEN)])
+  //                 .set('Content-Type', 'application/json')
+  //                 .set('Accept', 'application/json');
 
-    const body = {
-      oldPass: oldPass,
-      newPass: newPass
-    };
+  //   const body = {
+  //     oldPass: oldPass,
+  //     newPass: newPass
+  //   };
 
-    return this.http.post<any>(`${environment.apiUrl}/users/change-password/` + localStorage.getItem(localStoageKeys.ID), {
-      body }, { headers: headers})
-      .pipe(
-      mapTo(true),
-      catchError(error => {
-        alert(error.error);
-        return of(false);
-      }));
-  }
+  //   return this.http.post<any>(`${environment.apiUrl}/users/change-password/` + localStorage.getItem(localStoageKeys.ID), {
+  //     body }, { headers: headers})
+  //     .pipe(
+  //     mapTo(true),
+  //     catchError(error => {
+  //       alert(error.error);
+  //       return of(false);
+  //     }));
+  // }
 }
