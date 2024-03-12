@@ -37,7 +37,7 @@
             <a class="nav-link" href="about.html">Opcion 2</a>
           </li>
            <li class="nav-item" *ngIf ="authenticated">
-            <a class="nav-link" href="services.html">Users</a>
+            <a class="nav-link" [routerLink]="'/user'">Users</a>
           </li>
           <li class="nav-item" *ngIf ="authenticated">
             <a class="nav-link" href="contact.html">Reportes</a>
@@ -52,6 +52,7 @@
         <!-- <button *ngIf ="!authenticate" mat-stroked-button color="primary" style="background-color: #FC501F; color: #FFFFFF; border-color: #FFFFFF;" (click)="openLoginDialog()">
           <i class="fa fa-sign-in"></i>&nbsp;Sign In
         </button> -->
+        <span *ngIf ="authenticated" class="user-logged">{{ user?.name + " " + user?.lastName }}</span>
         <button *ngIf ="!authenticated" mat-raised-button color="primary" (click)="openLoginDialog()">Login</button>
         <button *ngIf ="authenticated" mat-stroked-button color="primary" style="background-color: #FC501F; color: #FFFFFF; border-color: #FFFFFF;" (click)="logoutUser()">
           <i class="fa fa-sign-out"></i>&nbsp;Logout
@@ -59,7 +60,7 @@
         <!-- <form action="#" class="form-inline position-relative my-2 my-lg-0">
           <input class="form-control search" type="search" placeholder="Search here..." aria-label="Search" required="">
           <button class="btn btn-search position-absolute" type="submit"><span class="fa fa-search" aria-hidden="true"></span></button>
-        </form> -->
+        </form> --> 
       </div>
     </div>
   </nav>

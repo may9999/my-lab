@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -19,6 +20,8 @@ import { LoginDialogComponent } from './components/dialogs/login-dialog/login-di
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
+import { UserComponent } from './components/users/user.component';
+import { UserService } from './auth/services/user.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { MatInputModule } from '@angular/material/input';
     HomeComponent,
     LandingComponent,
     BannerComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -38,10 +42,12 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatGridListModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    UserService
   ],
   bootstrap: [AppComponent]
 })

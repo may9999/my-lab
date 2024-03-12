@@ -1,0 +1,39 @@
+<app-banner></app-banner>
+
+<form class="form" #loginForm = "ngForm" (ngSubmit) = "onSubmit(loginForm)">
+	<mat-card class="full-width">
+		<mat-card-header>
+		<mat-card-title>USER</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+		<!-- <mat-form-field class="full-width">
+			<mat-label>User</mat-label>
+			<input matInput type="text" name="userName" ngModel>
+		</mat-form-field>
+		<mat-form-field class="full-width">
+			<mat-label>Password </mat-label>
+			<input matInput type="password" name="password" ngModel>
+		</mat-form-field> -->
+		<mat-grid-list cols="2" rowHeight="2:1">
+			<mat-grid-tile>
+				<mat-form-field class="full-width">
+					<mat-label>User</mat-label>
+					<input matInput type="text" name="userName" ngModel>
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<mat-form-field class="full-width">
+					<mat-label>Password </mat-label>
+					<input matInput type="password" name="password" ngModel>
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>3</mat-grid-tile>
+			<mat-grid-tile>4</mat-grid-tile>
+		  </mat-grid-list>
+		</mat-card-content>
+		<p *ngIf="showWarningMessage">Wrong User Name / Password</p>
+		<mat-card-actions align="end">
+		<button mat-raised-button color="primary" type = "submit">Submit</button>
+		</mat-card-actions>
+	</mat-card>
+</form>  

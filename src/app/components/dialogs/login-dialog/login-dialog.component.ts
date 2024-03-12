@@ -10,6 +10,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 })
 export class LoginDialogComponent implements OnInit {
   showWarningMessage = false;
+  
   constructor(private authService: AuthService,
               private dialogRef: MatDialogRef<LoginDialogComponent>) {
     this.dialogRef.disableClose = true;
@@ -31,6 +32,8 @@ export class LoginDialogComponent implements OnInit {
         });
       } else {
         this.showWarningMessage = true;
+        form.controls['userName'].setValue(null);
+        form.controls['password'].setValue(null);
       }
     });
   }

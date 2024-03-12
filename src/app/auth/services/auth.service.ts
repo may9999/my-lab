@@ -17,7 +17,9 @@ export class AuthService {
     
     return this.http.post<any>(`${environment.apiUrl}/usr/login`, body )
       .pipe(
-        tap(res => this.storeInStorage(res)),
+        tap(res => {
+          this.storeInStorage(res);
+        }),
         mapTo(true),
         catchError(error => {
           return of(false);
@@ -90,6 +92,10 @@ export class AuthService {
 
   private storeRefreshToken(jwt: string) {
     localStorage.setItem(localStoageKeys.REFRESH_TOKEN, jwt);
+  }
+
+  public getItemUserId() {
+    return localStorage.getItem(localStoageKeys.ID);
   }
 
   private storeInStorage(res: any) {
