@@ -17,7 +17,7 @@ import { LandingComponent } from './components/landing/landing.component';
 
 // Dialogs
 import { LoginDialogComponent } from './components/dialogs/login-dialog/login-dialog.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { UserComponent } from './components/users/user.component';
@@ -43,7 +43,8 @@ import { UserService } from './auth/services/user.service';
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
-    MatGridListModule
+    MatGridListModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),
