@@ -1,5 +1,10 @@
 <app-banner></app-banner>
-
+<section class="example-section">
+	<!-- <mat-form-field> -->
+		<mat-checkbox class="example-margin" [(ngModel)]="active"
+		(ngModelChange)="userStatus()" >Inactive Users</mat-checkbox>
+	<!-- </mat-form-field> -->
+</section>
 <div class="row margin-row">
 	<div class="col-xs-12 col-sm-12">
 	  <mat-card>

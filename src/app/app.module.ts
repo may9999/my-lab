@@ -12,6 +12,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -50,7 +51,8 @@ import { UserService } from './auth/services/user.service';
     ReactiveFormsModule,
     MatTableModule, 
     MatSortModule, 
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
   providers: [
     provideClientHydration(),

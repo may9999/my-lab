@@ -27,6 +27,7 @@ export interface UserData {
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit, AfterViewInit {
+  public active: boolean = true;
   displayedColumns: string[] = ['email', 'name', 'lastName', 'role'];
   dataSource!: MatTableDataSource<UserData>;
   // userForm!: FormGroup;
@@ -35,9 +36,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private userService: UserService, /*private formBuilder: FormBuilder*/) {
-    this.userService.getUsers('active').subscribe(response => {
-      this.dataSource = new MatTableDataSource(response);
-    });
   }
 
   ngOnInit(): void {
@@ -51,8 +49,17 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.loadUsersTable();
+  }
+
+  private loadUsersTable() {
+    const status = this.active ? 'active' : 'inactive';
+
+    this.userService.getUsers(status).subscribe(response => {
+      this.dataSource = new MatTableDataSource(response);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   onSubmit() {
@@ -71,5 +78,9 @@ export class UserComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  userStatus() {
+   this.loadUsersTable();
   }
 }
