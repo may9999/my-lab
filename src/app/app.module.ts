@@ -9,6 +9,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -44,7 +47,10 @@ import { UserService } from './auth/services/user.service';
     MatInputModule,
     BrowserAnimationsModule,
     MatGridListModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule, 
+    MatSortModule, 
+    MatPaginatorModule
   ],
   providers: [
     provideClientHydration(),
