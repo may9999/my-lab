@@ -14,53 +14,20 @@ import { MatPaginator } from '@angular/material/paginator';
 // }
 
 export interface UserData {
-  id: string;
+  email: string;
+  active: boolean;
+  lastName: string;
   name: string;
-  progress: string;
-  fruit: string;
+  passReset: boolean;
+  role: string;
 }
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
-
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
+  displayedColumns: string[] = ['email', 'name', 'lastName', 'role'];
   dataSource!: MatTableDataSource<UserData>;
   // userForm!: FormGroup;
   // matcher = new MyErrorStateMatcher();
@@ -68,17 +35,12 @@ export class UserComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private userService: UserService, /*private formBuilder: FormBuilder*/) {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => this.createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    this.userService.getUsers('active').subscribe(response => {
+      this.dataSource = new MatTableDataSource(response);
+    });
   }
 
   ngOnInit(): void {
-    this.userService.getUsers('active').subscribe(response => {
-      console.log(response);
-    });
     // this.userForm = new FormGroup({
     //   email: new FormControl('', [Validators.required, Validators.email]),
     //   password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
@@ -110,20 +72,4 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  /** Builds and returns a new User. */
-  createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
-}
 }
