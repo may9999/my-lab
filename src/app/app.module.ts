@@ -13,19 +13,22 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { UserComponent } from './components/users/user.component';
 
 // Dialogs
 import { LoginDialogComponent } from './components/dialogs/login-dialog/login-dialog.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MatInputModule } from '@angular/material/input';
-import { UserComponent } from './components/users/user.component';
+
+// Services
 import { UserService } from './auth/services/user.service';
+import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { UserService } from './auth/services/user.service';
     LandingComponent,
     BannerComponent,
     LoginDialogComponent,
+    UserDialogComponent,
     UserComponent
   ],
   imports: [

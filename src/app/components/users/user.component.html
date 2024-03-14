@@ -1,13 +1,15 @@
 <app-banner></app-banner>
-<section class="example-section">
-	<!-- <mat-form-field> -->
-		<mat-checkbox class="example-margin" [(ngModel)]="active"
-		(ngModelChange)="userStatus()" >Inactive Users</mat-checkbox>
-	<!-- </mat-form-field> -->
-</section>
 <div class="row margin-row">
 	<div class="col-xs-12 col-sm-12">
 	  <mat-card>
+		  <mat-card-header>
+			<div mat-card-avatar class="example-header-image"></div>
+			<mat-card-title class="car-title-color">USERS </mat-card-title>
+		  </mat-card-header>
+		  <section class="example-section">
+			<mat-checkbox class="example-margin" [(ngModel)]="active"
+			(ngModelChange)="userStatus()" >Inactive Users</mat-checkbox>
+		  </section>
 		  <mat-form-field>
 			<mat-label>Filter</mat-label>
 			<input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
@@ -51,44 +53,9 @@
 		  
 			<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 		  </div>
+		  <mat-card-actions align="end">
+			<button mat-raised-button color="primary" type = "button" (click)="openLoginDialog()">Add User</button>
+		  </mat-card-actions>
 	  </mat-card>
 	</div>
 </div>
-
-
-
-<!-- <form class="form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
-	<div class="row margin-row">
-		<div class="col-xs-12 col-sm-12">
-		  <mat-card>
-			<mat-card-header>
-			  <div mat-card-avatar class="example-header-image"></div>
-			  <mat-card-title class="car-title-color">USERS </mat-card-title>
-			</mat-card-header>
-			<mat-card-content>
-			  <div class="row">
-				<div class="col-xs-12 col-sm-6">
-					<mat-form-field class="full-width">
-						<mat-label>Email</mat-label>
-          				<input matInput formControlName="email" name="email" required type="email">
-						<mat-error *ngIf="userForm.get('email')?.hasError('required')">Email is required</mat-error>
-						<mat-error *ngIf="userForm.get('email')?.hasError('email')">Email must be a valid email address</mat-error>
-					</mat-form-field>
-				</div>
-				<div class="col-xs-12 col-sm-6">
-					<mat-form-field class="full-width">
-						<mat-label>Password</mat-label>
-						<input matInput formControlName="password" name="password" type="password" required pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$">
-						<mat-error *ngIf="userForm.get('password')?.hasError('required')">Password is required</mat-error>
-						<mat-error *ngIf="userForm.value.password">Password must be a combination of lower-case, upper-case, numbers and at least 9 characters long</mat-error>
-					</mat-form-field>
-				  </div>
-			  </div>
-			</mat-card-content>
-			<mat-card-actions align="end">
-				<button mat-raised-button color="primary" [disabled]="userForm.invalid" type = "submit">Submit</button>
-			</mat-card-actions>
-		  </mat-card>
-		</div>
-	  </div>
-</form>   -->

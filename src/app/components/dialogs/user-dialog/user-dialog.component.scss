@@ -1,0 +1,11 @@
+.full-width {
+  width: 100%!important;
+}
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.form {
+  width: 100%;
+}

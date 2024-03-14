@@ -1,17 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { UserService } from '../../auth/services/user.service';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-
-// export class MyErrorStateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     const isSubmitted = form && form.submitted;
-//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//   }
-// }
+import { MatDialog } from '@angular/material/dialog';
+import { UserDialogComponent } from '../dialogs/user-dialog/user-dialog.component';
 
 export interface UserData {
   email: string;
@@ -30,22 +23,13 @@ export class UserComponent implements OnInit, AfterViewInit {
   public active: boolean = true;
   displayedColumns: string[] = ['email', 'name', 'lastName', 'role'];
   dataSource!: MatTableDataSource<UserData>;
-  // userForm!: FormGroup;
-  // matcher = new MyErrorStateMatcher();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService: UserService, /*private formBuilder: FormBuilder*/) {
+  constructor(private userService: UserService, public dialog: MatDialog /*private formBuilder: FormBuilder*/) {
   }
 
   ngOnInit(): void {
-    // this.userForm = new FormGroup({
-    //   email: new FormControl('', [Validators.required, Validators.email]),
-    //   password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
-    //   // name:  new FormControl('', [Validators.required]),
-    //   // lastName: new FormControl('', [Validators.required]),
-    //   // role: new FormControl('', [Validators.required])
-    // });
   }
 
   ngAfterViewInit() {
@@ -62,15 +46,6 @@ export class UserComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onSubmit() {
-    // // Handle form submission here
-    // if (this.userForm.valid) {
-    //   console.log(this.userForm.value);
-    //   // Additional logic to authenticate user or 
-    //   // perform other actions
-    // }
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -82,5 +57,15 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   userStatus() {
    this.loadUsersTable();
+  }
+
+  openLoginDialog() {
+    const dialogRef = this.dialog.open(UserDialogComponent, {
+      width: '70%',
+      height: '85%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }
