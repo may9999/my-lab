@@ -17,7 +17,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class UserDialogComponent implements OnInit {
   userForm!: FormGroup;
+  roleSelected!: string;
+  roleControl = new FormControl<any | null>(null, Validators.required);
   matcher = new MyErrorStateMatcher();
+  roles: string[] = [
+    'ADMIN',
+    'MANAGER',
+    'TECHNICAL',
+    'USER',
+    'CUSTOMER'
+  ];
   
   constructor(private dialogRef: MatDialogRef<UserDialogComponent>) {
     this.dialogRef.disableClose = true;
@@ -30,9 +39,9 @@ export class UserDialogComponent implements OnInit {
     this.userForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
-      // name:  new FormControl('', [Validators.required]),
-      // lastName: new FormControl('', [Validators.required]),
-      // role: new FormControl('', [Validators.required])
+      name:  new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      role: new FormControl('', [Validators.required])
     });
   }
 

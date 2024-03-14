@@ -16,6 +16,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -25,10 +26,10 @@ import { UserComponent } from './components/users/user.component';
 
 // Dialogs
 import { LoginDialogComponent } from './components/dialogs/login-dialog/login-dialog.component';
+import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialog.component';
 
 // Services
 import { UserService } from './auth/services/user.service';
-import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialo
     MatTableModule, 
     MatSortModule, 
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule
   ],
   providers: [
     provideClientHydration(),
