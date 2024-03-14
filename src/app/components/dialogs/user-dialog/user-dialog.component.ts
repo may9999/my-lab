@@ -47,14 +47,18 @@ export class UserDialogComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
      // Handle form submission here
     if (this.userForm.valid) {
       // Additional logic to authenticate user or 
       // perform other actions
       this.userService.addUser(this.userForm.value).subscribe(() => {
-        this.dialogRef.close();
+        this.close();
       });
     }
+  }
+
+  close(): void {
+    this.dialogRef.close();
   }
 }
