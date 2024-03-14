@@ -66,6 +66,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this,this.loadUsersTable();
     });
   }
 }

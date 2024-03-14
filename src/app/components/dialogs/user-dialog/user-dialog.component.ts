@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { UserService } from '../../../auth/services/user.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,9 +29,10 @@ export class UserDialogComponent implements OnInit {
     'CUSTOMER'
   ];
   
-  constructor(private dialogRef: MatDialogRef<UserDialogComponent>) {
+  constructor(private dialogRef: MatDialogRef<UserDialogComponent>,
+              private userService: UserService) {
     this.dialogRef.disableClose = true;
-    this.dialogRef.backdropClick().subscribe(mouseEvent => {
+    this.dialogRef.backdropClick().subscribe(() => {
       dialogRef.close();
     });
   }
@@ -48,9 +50,11 @@ export class UserDialogComponent implements OnInit {
   onSubmit() {
      // Handle form submission here
     if (this.userForm.valid) {
-      console.log(this.userForm.value);
       // Additional logic to authenticate user or 
       // perform other actions
+      this.userService.addUser(this.userForm.value).subscribe(() => {
+        this.dialogRef.close();
+      });
     }
   }
 }
