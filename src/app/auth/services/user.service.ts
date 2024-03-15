@@ -38,4 +38,16 @@ export class UserService {
                   .set('Accept', 'application/json');
     return this.http.post<any>(`${environment.apiUrl}/users/register`, userObj, { headers: headers });
   }
+
+  activateUser(id: string, activate: boolean) {
+    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    const headers = new HttpHeaders()
+                  .set('Authorization', [token != null ? token : ''])
+                  .set('Content-Type', 'application/json')
+                  .set('Accept', 'application/json');
+    const activeObj = {
+      active: activate
+    }
+    return this.http.put<any>(`${environment.apiUrl}/users//activate/${id}`, activeObj, { headers: headers });
+  }
 }

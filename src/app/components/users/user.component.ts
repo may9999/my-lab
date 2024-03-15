@@ -5,8 +5,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from '../dialogs/user-dialog/user-dialog.component';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export interface UserData {
+  _id: string;
   email: string;
   active: boolean;
   lastName: string;
@@ -21,10 +23,11 @@ export interface UserData {
 })
 export class UserComponent implements OnInit, AfterViewInit {
   public active: boolean = true;
-  displayedColumns: string[] = ['email', 'name', 'lastName', 'role'];
+  displayedColumns: string[] = ['select', 'email', 'name', 'lastName', 'role'];
   dataSource!: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  selection = new SelectionModel<UserData>(true, []);
 
   constructor(private userService: UserService, public dialog: MatDialog /*private formBuilder: FormBuilder*/) {
   }
@@ -59,6 +62,35 @@ export class UserComponent implements OnInit, AfterViewInit {
    this.loadUsersTable();
   }
 
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    if (this.dataSource) {
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    } else {
+      return false;
+    }
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: UserData): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.email}`;
+  }
+
   openLoginDialog() {
     const dialogRef = this.dialog.open(UserDialogComponent, {
       width: '70%',
@@ -68,5 +100,27 @@ export class UserComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       this,this.loadUsersTable();
     });
+  }
+
+  inactivateUsers(): void {
+    if (this.selection.hasValue()) {
+      for (const usr of this.selection.selected) {
+        this.userService.activateUser(usr._id, false).subscribe(() => {
+          this.selection.clear();
+          this.loadUsersTable();
+        });
+      }
+    }
+  }
+
+  activateUsers(): void {
+    if (this.selection.hasValue()) {
+      for (const usr of this.selection.selected) {
+        this.userService.activateUser(usr._id, true).subscribe(() => {
+          this.selection.clear();
+          this.loadUsersTable();
+        });
+      }
+    }
   }
 }
