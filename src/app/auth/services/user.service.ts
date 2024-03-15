@@ -16,7 +16,6 @@ export class UserService {
                   .set('Authorization', [token != null ? token : ''])
                   .set('Content-Type', 'application/json')
                   .set('Accept', 'application/json');
-
     return this.http.get<any>(`${environment.apiUrl}/users/${id}`, { headers: headers });
   }
 

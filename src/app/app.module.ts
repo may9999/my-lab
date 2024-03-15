@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -58,7 +59,8 @@ import { UserService } from './auth/services/user.service';
     MatSortModule, 
     MatPaginatorModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [
     provideClientHydration(),

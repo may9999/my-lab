@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { UserService } from '../../../auth/services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,6 +32,7 @@ export class UserDialogComponent implements OnInit {
   
   constructor(private dialogRef: MatDialogRef<UserDialogComponent>,
               private userService: UserService,
+              private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dialogRef.disableClose = true;
     this.dialogRef.backdropClick().subscribe(() => {
@@ -62,6 +64,11 @@ export class UserDialogComponent implements OnInit {
       // perform other actions
       this.userService.addUser(this.userForm.value).subscribe(() => {
         this.close();
+      },e => {
+        console.log(e.error);
+        this.snackBar.open('ERROR', e.error, {
+          duration: 5000 // 5 seconds
+        });
       });
     }
   }

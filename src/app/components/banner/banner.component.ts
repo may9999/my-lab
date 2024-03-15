@@ -27,6 +27,7 @@ export class BannerComponent implements OnInit {
       if (userId !== null) {
         this.userService.getUser(userId).subscribe(response => {
           this.user = new User(response);
+          this.isAdmin = response.role === 'ADMIN' ? true: false;
         });
       }
     }
