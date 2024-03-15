@@ -123,4 +123,8 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
+  editUser(user: any): void {
+    console.log(user);
+  }
 }
