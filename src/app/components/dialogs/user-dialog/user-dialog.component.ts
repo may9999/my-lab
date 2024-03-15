@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { UserService } from '../../../auth/services/user.service';
@@ -30,7 +30,8 @@ export class UserDialogComponent implements OnInit {
   ];
   
   constructor(private dialogRef: MatDialogRef<UserDialogComponent>,
-              private userService: UserService) {
+              private userService: UserService,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dialogRef.disableClose = true;
     this.dialogRef.backdropClick().subscribe(() => {
       dialogRef.close();
@@ -45,6 +46,13 @@ export class UserDialogComponent implements OnInit {
       lastName: new FormControl('', [Validators.required]),
       role: new FormControl('', [Validators.required])
     });
+
+    if (this.data.option === 'edit') {
+      this.userForm.get('email')?.setValue(this.data.user.email);
+      this.userForm.get('name')?.setValue(this.data.user.name);
+      this.userForm.get('lastName')?.setValue(this.data.user.lastName);
+      this.userForm.get('role')?.setValue(this.data.user.role);
+    }
   }
 
   onSubmit(): void {

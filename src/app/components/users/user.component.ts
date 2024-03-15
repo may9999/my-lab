@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from '../dialogs/user-dialog/user-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
+import { User } from '../../auth/models/user';
 
 export interface UserData {
   _id: string;
@@ -92,9 +93,17 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   openLoginDialog() {
+    this.loadDialog('add', new User());
+  }
+
+  loadDialog(option: string, user: User): void {
     const dialogRef = this.dialog.open(UserDialogComponent, {
       width: '70%',
-      height: '85%'
+      height: '85%',
+      data: { 
+        option: option ,
+        user: user
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -125,6 +134,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   editUser(user: any): void {
-    console.log(user);
+    this.loadDialog('edit', user);
   }
 }
