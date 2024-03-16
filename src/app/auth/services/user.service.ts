@@ -11,42 +11,51 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUser(id: string): Observable<any> {
-    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
-    const headers = new HttpHeaders()
-                  .set('Authorization', [token != null ? token : ''])
-                  .set('Content-Type', 'application/json')
-                  .set('Accept', 'application/json');
+    const headers = this.userHeaders();
     return this.http.get<any>(`${environment.apiUrl}/users/${id}`, { headers: headers });
   }
 
   getUsers(status: string): Observable<any> { // actice - inactive
-    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
-    const headers = new HttpHeaders()
-                  .set('Authorization', [token != null ? token : ''])
-                  .set('Content-Type', 'application/json')
-                  .set('Accept', 'application/json');
-
+    const headers = this.userHeaders();
     return this.http.get<any>(`${environment.apiUrl}/users?status=${status}`, { headers: headers });
   }
 
   addUser(userObj: User) {
-    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
-    const headers = new HttpHeaders()
-                  .set('Authorization', [token != null ? token : ''])
-                  .set('Content-Type', 'application/json')
-                  .set('Accept', 'application/json');
+    const headers = this.adminHeaders();
     return this.http.post<any>(`${environment.apiUrl}/users/register`, userObj, { headers: headers });
   }
 
   activateUser(id: string, activate: boolean) {
-    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
-    const headers = new HttpHeaders()
-                  .set('Authorization', [token != null ? token : ''])
-                  .set('Content-Type', 'application/json')
-                  .set('Accept', 'application/json');
+    const headers = this.adminHeaders();
     const activeObj = {
       active: activate
     }
     return this.http.put<any>(`${environment.apiUrl}/users//activate/${id}`, activeObj, { headers: headers });
+  }
+
+  public getCurrentUserId() {
+    return localStorage.getItem(localStoageKeys.ID)? localStorage.getItem(localStoageKeys.ID): '';
+  }
+
+  adminHeaders() {
+    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    const id = this.getCurrentUserId();
+    const headers = new HttpHeaders()
+                  .set('Authorization', [token != null ? token : ''])
+                  .set('Content-Type', 'application/json')
+                  .set('Accept', 'application/json')
+                  .set('current-user', id != null ? id : '');
+    return headers;
+  }
+
+  userHeaders() {
+    const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
+    const id = this.getCurrentUserId();
+    const headers = new HttpHeaders()
+                  .set('Authorization', [token != null ? token : ''])
+                  .set('Content-Type', 'application/json')
+                  .set('Accept', 'application/json')
+                  .set('current-user', id != null ? id : '');
+    return headers;
   }
 }
