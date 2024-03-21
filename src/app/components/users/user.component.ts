@@ -99,7 +99,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   loadDialog(option: string, user: User): void {
     const dialogRef = this.dialog.open(UserDialogComponent, {
       width: '70%',
-      height: '85%',
+      height: 'auto',
       data: { 
         option: option ,
         user: user

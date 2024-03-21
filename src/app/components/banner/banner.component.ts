@@ -36,7 +36,7 @@ export class BannerComponent implements OnInit {
   openLoginDialog() {
     const dialogRef = this.dialog.open(LoginDialogComponent, {
       width: '30%',
-      height: '50%'
+      height: 'auto'
     });
 
     dialogRef.afterClosed().subscribe(result => {
