@@ -63,22 +63,28 @@ export class UserDialogComponent implements OnInit {
       // Additional logic to authenticate user or 
       // perform other actions
       if (this.data.option === 'add') {
-        this.userService.addUser(this.userForm.value).subscribe(() => {
-          this.close();
-        },e => {
-          console.log(e.error);
-          this.snackBar.open('ERROR', e.error.message, {
-            duration: 5000 // 5 seconds
-          });
+        this.userService.addUser(this.userForm.value).subscribe({
+          next: () => {
+            this.close();
+          },
+          error: e => {
+            console.log(e.error);
+            this.snackBar.open('ERROR', e.error.message, {
+              duration: 5000 // 5 seconds
+            });
+          }
         });
       } else if (this.data.option === 'edit'){ // update user
-        this.userService.updateUser(this.userForm.value, this.data.user._id).subscribe(() => {
+        this.userService.updateUser(this.userForm.value, this.data.user._id).subscribe({
+         next: () => {
           this.close();
-        },e => {
+         }, 
+         error: e => {
           console.log(e.error);
           this.snackBar.open('ERROR', e.error.message, {
             duration: 5000 // 5 seconds
           });
+         } 
         });
       } else {
         this.snackBar.open('ERROR', 'Invalid Option', {
