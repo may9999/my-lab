@@ -25,6 +25,11 @@ export class UserService {
     return this.http.post<any>(`${environment.apiUrl}/users/register`, userObj, { headers: headers });
   }
 
+  updateUser(userObj: User, id: string) {
+    const headers = this.adminHeaders();
+    return this.http.patch<any>(`${environment.apiUrl}/users/${id}`, userObj, { headers: headers });
+  }
+
   activateUser(id: string, activate: boolean) {
     const headers = this.adminHeaders();
     const activeObj = {
@@ -54,8 +59,7 @@ export class UserService {
     const headers = new HttpHeaders()
                   .set('Authorization', [token != null ? token : ''])
                   .set('Content-Type', 'application/json')
-                  .set('Accept', 'application/json')
-                  .set('current-user', id != null ? id : '');
+                  .set('Accept', 'application/json');
     return headers;
   }
 }
