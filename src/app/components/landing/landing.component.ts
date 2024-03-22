@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
