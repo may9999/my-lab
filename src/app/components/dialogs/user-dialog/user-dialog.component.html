@@ -7,7 +7,20 @@
 			  <mat-card-title class="car-title-color"> {{ this.data.option.toUpperCase() }} USER </mat-card-title>
 			</mat-card-header>
 			<mat-card-content>
-			  <div class="row">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Role</mat-label>
+              <mat-select formControlName="role" name="role" required>
+                @for (role of roles; track role) {
+                  <mat-option [value]="role">{{ role }}</mat-option>
+                }
+              </mat-select>
+              @if (userForm.get('role')?.hasError('required')) {
+                <mat-error>Please select a Role</mat-error>
+              }
+            </mat-form-field>
+          </div>
           <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
               <mat-label>Email</mat-label>
@@ -24,8 +37,6 @@
               <mat-error *ngIf="userForm.value.password">Password must be a combination of lower-case, upper-case, numbers and at least 9 characters long</mat-error>
             </mat-form-field>
 				  </div>
-			  </div>
-        <div class="row">
           <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
               <mat-label>Name</mat-label>
@@ -39,22 +50,7 @@
                     <input matInput formControlName="lastName" name="lastName" required type="text">
               <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
             </mat-form-field>
-				  </div>
-			  </div>
-        <div class="row">
-          <div class="col-xs-12 col-sm-6">
-            <mat-form-field class="full-width">
-              <mat-label>Role</mat-label>
-              <mat-select formControlName="role" name="role" required>
-                @for (role of roles; track role) {
-                  <mat-option [value]="role">{{ role }}</mat-option>
-                }
-              </mat-select>
-              @if (userForm.get('role')?.hasError('required')) {
-                <mat-error>Please select a Role</mat-error>
-              }
-            </mat-form-field>
-          </div>
+			    </div>
 			  </div>
 			</mat-card-content>
 			<mat-card-actions align="end">

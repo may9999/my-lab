@@ -46,7 +46,12 @@ export class UserDialogComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
       name:  new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
-      role: new FormControl('', [Validators.required])
+      role: new FormControl('', [Validators.required]),
+      clientCode: new FormControl('', [Validators.required]),
+      address: new FormControl('', [Validators.required]),
+      contactNumber: new FormControl('', []),
+      neighborhood: new FormControl('', []),
+      zipCode: new FormControl('', []),
     });
 
     if (this.data.option === 'edit') {
@@ -54,6 +59,11 @@ export class UserDialogComponent implements OnInit {
       this.userForm.get('name')?.setValue(this.data.user.name);
       this.userForm.get('lastName')?.setValue(this.data.user.lastName);
       this.userForm.get('role')?.setValue(this.data.user.role);
+      this.userForm.get('clientCode')?.setValue(this.data.user.clientCode);
+      this.userForm.get('address')?.setValue(this.data.user.address);
+      this.userForm.get('contactNumber')?.setValue(this.data.user.contactNumber);
+      this.userForm.get('neighborhood')?.setValue(this.data.user.neighborhood);
+      this.userForm.get('zipCode')?.setValue(this.data.user.zipCode);
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'mylbab';
 
   constructor() {
-    moment.locale('en');
+    // moment.locale('en');
     // const currentTimeEn = moment().format('LLL');
   }
 }
