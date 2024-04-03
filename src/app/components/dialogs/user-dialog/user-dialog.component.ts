@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '
 import { ErrorStateMatcher } from '@angular/material/core';
 import { UserService } from '../../../auth/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ROLES } from '../../models/roles'
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,13 +23,7 @@ export class UserDialogComponent implements OnInit {
   roleSelected!: string;
   roleControl = new FormControl<any | null>(null, Validators.required);
   matcher = new MyErrorStateMatcher();
-  roles: string[] = [
-    'ADMIN',
-    'MANAGER',
-    'TECHNICAL',
-    'USER',
-    'CUSTOMER'
-  ];
+  roles = ROLES;
   
   constructor(private dialogRef: MatDialogRef<UserDialogComponent>,
               private userService: UserService,
