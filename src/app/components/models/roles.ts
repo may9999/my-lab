@@ -3,5 +3,5 @@ export const ROLES: string[] = [
     'MANAGER',
     'TECHNICAL',
     'USER',
-    'CUSTOMER'
+    'CLIENT'
 ];
