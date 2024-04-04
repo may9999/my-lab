@@ -53,16 +53,6 @@ export class UserDialogComponent implements OnInit {
 
     if (this.data.option === 'edit') {
       this.loadForm(this.data.user.role);
-      // this.userForm.get('email')?.setValue(this.data.user.email);
-      // this.userForm.get('name')?.setValue(this.data.user.name);
-      // this.userForm.get('lastName')?.setValue(this.data.user.lastName);
-      // this.userForm.get('role')?.setValue(this.data.user.role);
-      // this.userForm.get('code')?.setValue(this.data.user.code);
-      // this.userForm.get('address')?.setValue(this.data.user.address);
-      // this.userForm.get('contactNumber')?.setValue(this.data.user.contactNumber);
-      // this.userForm.get('neighborhood')?.setValue(this.data.user.neighborhood);
-      // this.userForm.get('city')?.setValue(this.data.user.city);
-      // this.userForm.get('zipCode')?.setValue(this.data.user.zipCode);
     }
   }
 
@@ -104,53 +94,7 @@ export class UserDialogComponent implements OnInit {
   }
 
   roleOnChange(event: any) {
-    // const tmpRole = event.value;
-
     this.loadForm(event.value);
-
-    // if (tmpRole === 'CLIENT') {
-    //   this.display = true;
-    //   this.userForm = new FormGroup({
-    //     email: new FormControl('', [Validators.required, Validators.email]),
-    //     password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
-    //     name:  new FormControl('', [Validators.required]),
-    //     role: new FormControl('', [Validators.required]),
-    //     code: new FormControl('', [Validators.required]), // Requited for Client
-    //     address: new FormControl('', []),
-    //     contactNumber: new FormControl('', []),
-    //     neighborhood: new FormControl('', []),
-    //     city: new FormControl('', []),
-    //     zipCode: new FormControl('', []),
-    //   });
-    // } else { // user with different roles excepting CLIENT
-    //   this.display = false;
-    //   this.userForm = new FormGroup({
-    //     email: new FormControl('', [Validators.required, Validators.email]),
-    //     password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
-    //     name:  new FormControl('', [Validators.required]),
-    //     lastName: new FormControl('', [Validators.required]),
-    //     role: new FormControl('', [Validators.required]),
-    //     code: new FormControl('', []), // Not Required for Employee
-    //     address: new FormControl('', []),
-    //     contactNumber: new FormControl('', []),
-    //     neighborhood: new FormControl('', []),
-    //     city: new FormControl('', []),
-    //     zipCode: new FormControl('', []),
-    //   });
-    // }
-    // this.userForm.get('role')?.setValue(tmpRole);
-
-    // if (this.data.option === 'edit') {
-    //   this.userForm.get('email')?.setValue(this.data.user.email);
-    //   this.userForm.get('name')?.setValue(this.data.user.name);
-    //   this.userForm.get('lastName')?.setValue(this.data.user.lastName);
-    //   this.userForm.get('code')?.setValue(this.data.user.code);
-    //   this.userForm.get('address')?.setValue(this.data.user.address);
-    //   this.userForm.get('contactNumber')?.setValue(this.data.user.contactNumber);
-    //   this.userForm.get('neighborhood')?.setValue(this.data.user.neighborhood);
-    //   this.userForm.get('city')?.setValue(this.data.user.city);
-    //   this.userForm.get('zipCode')?.setValue(this.data.user.zipCode);
-    // }
   }
 
   loadForm(role: string) {
