@@ -44,7 +44,7 @@
               <mat-error *ngIf="userForm.get('name')?.hasError('required')">Name is required</mat-error>
             </mat-form-field>
           </div>
-          <div class="col-xs-12 col-sm-6">
+          <div class="col-xs-12 col-sm-6" *ngIf="!display">
             <mat-form-field class="full-width">
               <mat-label>Last Name</mat-label>
               <input matInput formControlName="lastName" name="lastName" required type="text">
