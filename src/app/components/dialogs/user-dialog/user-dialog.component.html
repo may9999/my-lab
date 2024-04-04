@@ -24,7 +24,7 @@
           <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
               <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" name="email" required type="email">
+              <input matInput formControlName="email" name="email" required type="email">
               <mat-error *ngIf="userForm.get('email')?.hasError('required')">Email is required</mat-error>
               <mat-error *ngIf="userForm.get('email')?.hasError('email')">Email must be a valid email address</mat-error>
             </mat-form-field>
@@ -40,17 +40,47 @@
           <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
               <mat-label>Name</mat-label>
-                    <input matInput formControlName="name" name="name" required type="text">
+              <input matInput formControlName="name" name="name" required type="text">
               <mat-error *ngIf="userForm.get('name')?.hasError('required')">Name is required</mat-error>
             </mat-form-field>
           </div>
           <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
               <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="lastName" name="lastName" required type="text">
+              <input matInput formControlName="lastName" name="lastName" required type="text">
               <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
             </mat-form-field>
 			    </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Client Code</mat-label>
+              <input matInput formControlName="clientCode" name="clientCode" required type="text">
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-12">
+            <mat-form-field class="full-width">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="address" name="address" type="text">
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Contact Number</mat-label>
+              <input matInput formControlName="contactNumber" name="contactNumber" type="text">
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Neighborhood</mat-label>
+              <input matInput formControlName="neighborhood" name="neighborhood" type="text">
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Zip Code</mat-label>
+              <input matInput formControlName="zipCode" name="zipCode" type="text">
+            </mat-form-field>
+          </div>
 			  </div>
 			</mat-card-content>
 			<mat-card-actions align="end">

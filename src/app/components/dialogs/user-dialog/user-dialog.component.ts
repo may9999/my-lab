@@ -43,7 +43,7 @@ export class UserDialogComponent implements OnInit {
       lastName: new FormControl('', [Validators.required]),
       role: new FormControl('', [Validators.required]),
       clientCode: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required]),
+      address: new FormControl('', []),
       contactNumber: new FormControl('', []),
       neighborhood: new FormControl('', []),
       zipCode: new FormControl('', []),
