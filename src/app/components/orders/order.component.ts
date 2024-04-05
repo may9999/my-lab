@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from '../dialogs/user-dialog/user-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { User } from '../../auth/models/user';
+import { Order } from '../../auth/models/order';
 
 @Component({
   selector: 'app-order',
@@ -14,12 +14,12 @@ import { User } from '../../auth/models/user';
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit, AfterViewInit {
-  public active: boolean = true;
-  // displayedColumns: string[] = ['select', 'email', 'name', 'lastName', 'role'];
-  // dataSource!: MatTableDataSource<UserData>;
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // @ViewChild(MatSort) sort!: MatSort;
-  // selection = new SelectionModel<UserData>(true, []);
+  // public active: boolean = true;
+  displayedColumns: string[] = ['select', 'name', 'lastName', 'clientId', 'status'];
+  dataSource!: MatTableDataSource<Order>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  selection = new SelectionModel<Order>(true, []);
 
   constructor() {
   }
