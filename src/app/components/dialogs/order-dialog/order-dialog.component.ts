@@ -2,9 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { UserService } from '../../../auth/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ROLES } from '../../models/roles'
+import { SEX_TYPE } from '../../models/sex.type'
+import { PAYMENT } from '../../models/payment'
+import { PAYMENT_TYPE } from '../../models/payment.type'
 import { Order } from '../../models/order';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,17 +21,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./order-dialog.component.scss'],
 })
 export class OrderDialogComponent implements OnInit {
-  // userForm!: FormGroup;
+  orderForm!: FormGroup;
   // roleSelected!: string;
   // roleControl = new FormControl<any | null>(null, Validators.required);
   // matcher = new MyErrorStateMatcher();
-  // roles = ROLES;
+  sexTypes = SEX_TYPE;
+  payments = PAYMENT;
+  paymentTypes = PAYMENT_TYPE;
   // display = true;
   
   constructor(private dialogRef: MatDialogRef<OrderDialogComponent>,
               // private userService: UserService,
               private snackBar: MatSnackBar,
-              @Inject(MAT_DIALOG_DATA) public data: Order) {
+              @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dialogRef.disableClose = true;
     this.dialogRef.backdropClick().subscribe(() => {
       dialogRef.close();
@@ -38,23 +41,24 @@ export class OrderDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.userForm = new FormGroup({
-    //   email: new FormControl('', [Validators.required, Validators.email]),
-    //   password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]),
-    //   name:  new FormControl('', [Validators.required]),
-    //   lastName: new FormControl('', [Validators.required]),
-    //   role: new FormControl('', [Validators.required]),
-    //   code: new FormControl('', [Validators.required]),
-    //   address: new FormControl('', []),
-    //   contactNumber: new FormControl('', []),
-    //   neighborhood: new FormControl('', []),
-    //   city: new FormControl('', []),
-    //   zipCode: new FormControl('', []),
-    // });
+    this.orderForm = new FormGroup({
+      name:  new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      age: new FormControl('', [Validators.required, Validators.pattern('\\b([1-9]|[1-9][0-9]|1[01][0-9]|15[0-9])\\b')]),
+      sexType: new FormControl('', [Validators.required]),
+      clientId: new FormControl('', [Validators.required]),
+      payment: new FormControl('', [Validators.required]),
+      paymentType: new FormControl('', [Validators.required]),
+      comments: new FormControl('', []),
+      status: new FormControl({value: '', disabled: true})
+    });
 
-    // if (this.data.option === 'edit') {
-    //   this.loadForm(this.data.user.role);
-    // }
+    if (this.data.option === 'edit') {
+      this.orderForm.get('status')?.setValue(this.data.order.status);
+      // this.loadForm(this.data.user.role);
+    } else {
+      this.orderForm.get('status')?.setValue('NEW');
+    }
   }
 
   onSubmit(): void {

@@ -3,7 +3,7 @@ export class Order {
   name: string;
   lastName: string;
   age: number;
-  sex: string;
+  sexType: string;
   clientId: string;
   payment: string; // complete - parcial - none
   paymentType: string; // credit card - cash - other
@@ -15,7 +15,7 @@ export class Order {
     this.name = obj && obj.name || null;
     this.lastName = obj && obj.lastName || null;
     this.age = obj && obj.age || null;
-    this.sex = obj && obj.sex || null;
+    this.sexType = obj && obj.sexType || null;
     this.clientId = obj && obj.clientId || null;
     this.payment = obj && obj.payment || null;
     this.paymentType = obj && obj.paymentType || null;

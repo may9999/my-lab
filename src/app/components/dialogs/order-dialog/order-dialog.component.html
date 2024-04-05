@@ -1,15 +1,14 @@
-DIALOG ORDERS
-<!-- <form class="form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
 	<div class="row margin-row">
 		<div class="col-xs-12 col-sm-12">
 		  <mat-card>
 			<mat-card-header>
 			  <div mat-card-avatar class="example-header-image"></div>
-			  <mat-card-title class="car-title-color"> {{ this.data.option.toUpperCase() }} USER </mat-card-title>
+			  <mat-card-title class="car-title-color"> {{ this.data.option.toUpperCase() }} ORDER </mat-card-title>
 			</mat-card-header>
 			<mat-card-content>
         <div class="row">
-          <div class="col-xs-12 col-sm-6">
+          <!-- <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
               <mat-label>Role</mat-label>
               <mat-select formControlName="role" name="role" (selectionChange)="roleOnChange($event)" required>
@@ -37,22 +36,75 @@ DIALOG ORDERS
               <mat-error *ngIf="userForm.get('password')?.hasError('required')">Password is required</mat-error>
               <mat-error *ngIf="userForm.value.password">Password must be a combination of lower-case, upper-case, numbers and at least 9 characters long</mat-error>
             </mat-form-field>
-				  </div>
+				  </div> -->
           <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
               <mat-label>Name</mat-label>
               <input matInput formControlName="name" name="name" required type="text">
-              <mat-error *ngIf="userForm.get('name')?.hasError('required')">Name is required</mat-error>
+              <mat-error *ngIf="orderForm.get('name')?.hasError('required')">Name is required</mat-error>
             </mat-form-field>
           </div>
-          <div class="col-xs-12 col-sm-6" *ngIf="!display">
+          <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
               <mat-label>Last Name</mat-label>
               <input matInput formControlName="lastName" name="lastName" required type="text">
-              <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
+              <mat-error *ngIf="orderForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
             </mat-form-field>
 			    </div>
-          <div class="col-xs-12 col-sm-6" *ngIf="display">
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Sex Type</mat-label>
+              <mat-select formControlName="sexType" name="sexType" required>
+                @for (sexType of sexTypes; track sexType) {
+                  <mat-option [value]="sexType">{{ sexType }}</mat-option>
+                }
+              </mat-select>
+              @if (orderForm.get('sexType')?.hasError('required')) {
+                <mat-error>Please select a Sex Type</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Age</mat-label>
+              <input matInput formControlName="age" name="age" required type="number">
+              <mat-error *ngIf="orderForm.get('age')?.hasError('required')">Age is required</mat-error>
+              <mat-error *ngIf="orderForm.value.age">Ages must be between 1 - 150 years old</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Payment</mat-label>
+              <mat-select formControlName="payment" name="payment" required>
+                @for (payment of payments; track payment) {
+                  <mat-option [value]="payment">{{ payment }}</mat-option>
+                }
+              </mat-select>
+              @if (orderForm.get('payment')?.hasError('required')) {
+                <mat-error>Please select a Payment</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Payment Type</mat-label>
+              <mat-select formControlName="paymentType" name="paymentType" required>
+                @for (paymentType of paymentTypes; track paymentType) {
+                  <mat-option [value]="paymentType">{{ paymentType }}</mat-option>
+                }
+              </mat-select>
+              @if (orderForm.get('paymentType')?.hasError('required')) {
+                <mat-error>Please select a Payment Type</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Status</mat-label>
+              <input matInput formControlName="status" name="status" type="text" required>
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-xs-12 col-sm-6" *ngIf="display">
             <mat-form-field class="full-width">
               <mat-label>Code</mat-label>
               <input matInput formControlName="code" name="code" required type="text">
@@ -94,14 +146,14 @@ DIALOG ORDERS
               <mat-label>Zip Code</mat-label>
               <input matInput formControlName="zipCode" name="zipCode" type="text">
             </mat-form-field>
-          </div>
+          </div> -->
 			  </div>
 			</mat-card-content>
 			<mat-card-actions align="end">
         <button mat-raised-button color="primary" class="margin-bnt" type = "button" (click)="close()">Close</button>
-				<button mat-raised-button color="primary" [disabled]="userForm.invalid" type = "submit">Submit</button>
+				<button mat-raised-button color="primary" [disabled]="orderForm.invalid" type = "submit">Submit</button>
 			</mat-card-actions>
 		  </mat-card>
 		</div>
 	  </div>
-</form>   -->
+</form>  
