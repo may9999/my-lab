@@ -29,6 +29,7 @@ import { OrderComponent } from './components/orders/order.component';
 // Dialogs
 import { LoginDialogComponent } from './components/dialogs/login-dialog/login-dialog.component';
 import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialog.component';
+import { OrderDialogComponent } from './components/dialogs/order-dialog/order-dialog.component';
 
 // Services
 import { UserService } from './auth/services/user.service';
@@ -42,6 +43,7 @@ import { OrderService } from './components/services/order.service';
     BannerComponent,
     LoginDialogComponent,
     UserDialogComponent,
+    OrderDialogComponent,
     UserComponent,
     OrderComponent
   ],

@@ -3,10 +3,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { UserDialogComponent } from '../dialogs/user-dialog/user-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Order } from '../models/order';
 import { OrderService } from '../services/order.service';
+import { OrderDialogComponent } from '../dialogs/order-dialog/order-dialog.component';
 
 @Component({
   selector: 'app-order',
@@ -85,23 +85,23 @@ export class OrderComponent implements OnInit, AfterViewInit {
   }
 
   openLoginDialog() {
-    // this.loadDialog('add', new User());
+    this.loadDialog('add', new Order());
   }
 
-  // loadDialog(option: string, user: User): void {
-  //   const dialogRef = this.dialog.open(UserDialogComponent, {
-  //     width: '70%',
-  //     height: 'auto',
-  //     data: { 
-  //       option: option ,
-  //       user: user
-  //     }
-  //   });
+  loadDialog(option: string, order: Order): void {
+    const dialogRef = this.dialog.open(OrderDialogComponent, {
+      width: '70%',
+      height: 'auto',
+      data: { 
+        option: option ,
+        order: order
+      }
+    });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     this,this.loadUsersTable();
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      this,this.loadUsersTable();
+    });
+  }
 
   // inactivateUsers(): void {
   //   if (this.selection.hasValue()) {
