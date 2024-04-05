@@ -5,6 +5,7 @@ import { LandingComponent } from './components/landing/landing.component';
 // import { AuthGuard } from './auth/guards/auth.guard';
 import { UserComponent } from './components/users/user.component';
 import { IsAdminGuard } from './auth/guards/auth.guard';
+import { OrderComponent } from './components/orders/order.component';
 
 const routes: Routes = [
   { path: 'landing', component: LandingComponent },
@@ -12,7 +13,7 @@ const routes: Routes = [
   // { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [IsAdminGuard] },
   { path: 'user', component: UserComponent, canActivate: [IsAdminGuard] },
-  // { path: 'physical-health', component: PhysicalHealthComponent },
+  { path: 'order', component: OrderComponent, canActivate: [IsAdminGuard] },
   // { path: 'nutritional-health', component: NutritionalHealthComponent },
   // { path: 'conf', component: ConfigurationComponent },
   // { path: 'email', component: EmailComponent },

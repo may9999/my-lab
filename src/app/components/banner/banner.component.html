@@ -34,7 +34,7 @@
             <a class="nav-link" [routerLink]="'/home'">Opcion 1 </a>
           </li>
           <li class="nav-item" *ngIf ="authenticated  && isAdmin">
-            <a class="nav-link" href="about.html">Opcion 2</a>
+            <a class="nav-link" [routerLink]="'/order'">Orders</a>
           </li>
            <li class="nav-item" *ngIf ="authenticated  && isAdmin">
             <a class="nav-link" [routerLink]="'/user'">Users</a>

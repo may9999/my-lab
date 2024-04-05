@@ -24,6 +24,7 @@ import { HomeComponent } from './components/home/home.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { UserComponent } from './components/users/user.component';
+import { OrderComponent } from './components/orders/order.component';
 
 // Dialogs
 import { LoginDialogComponent } from './components/dialogs/login-dialog/login-dialog.component';
@@ -40,7 +41,8 @@ import { UserService } from './auth/services/user.service';
     BannerComponent,
     LoginDialogComponent,
     UserDialogComponent,
-    UserComponent
+    UserComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
