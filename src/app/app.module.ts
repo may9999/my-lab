@@ -32,6 +32,7 @@ import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialo
 
 // Services
 import { UserService } from './auth/services/user.service';
+import { OrderService } from './components/services/order.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { UserService } from './auth/services/user.service';
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),
-    UserService
+    UserService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from '../../auth/services/user.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from '../dialogs/user-dialog/user-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Order } from '../../auth/models/order';
+import { Order } from '../models/order';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-order',
@@ -15,77 +15,78 @@ import { Order } from '../../auth/models/order';
 })
 export class OrderComponent implements OnInit, AfterViewInit {
   // public active: boolean = true;
-  displayedColumns: string[] = ['select', 'name', 'lastName', 'clientId', 'status'];
+  // displayedColumns: string[] = ['select', 'name', 'lastName', 'clientId', 'status'];
+  displayedColumns: string[] = ['select', 'name', 'lastName'];
   dataSource!: MatTableDataSource<Order>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   selection = new SelectionModel<Order>(true, []);
 
-  constructor() {
+  constructor(private orderService: OrderService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit() {
-    // this.loadUsersTable();
+    this.loadUsersTable();
   }
 
-  // private loadUsersTable() {
-  //   const status = this.active ? 'active' : 'inactive';
+  private loadUsersTable() {
+    // const status = this.active ? 'active' : 'inactive';
 
-  //   this.userService.getUsers(status).subscribe(response => {
-  //     this.dataSource = new MatTableDataSource(response);
-  //     this.dataSource.paginator = this.paginator;
-  //     this.dataSource.sort = this.sort;
-  //   });
-  // }
+    // this.userService.getUsers(status).subscribe(response => {
+    //   this.dataSource = new MatTableDataSource(response);
+    //   this.dataSource.paginator = this.paginator;
+    //   this.dataSource.sort = this.sort;
+    // });
+  }
 
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
-  // userStatus() {
+  // orderStatus() {
   //  this.loadUsersTable();
   // }
 
-  // /** Whether the number of selected elements matches the total number of rows. */
-  // isAllSelected() {
-  //   const numSelected = this.selection.selected.length;
-  //   if (this.dataSource) {
-  //     const numRows = this.dataSource.data.length;
-  //     return numSelected === numRows;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    if (this.dataSource) {
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    } else {
+      return false;
+    }
+  }
 
-  // /** Selects all rows if they are not all selected; otherwise clear selection. */
-  // toggleAllRows() {
-  //   if (this.isAllSelected()) {
-  //     this.selection.clear();
-  //     return;
-  //   }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
 
-  //   this.selection.select(...this.dataSource.data);
-  // }
+    this.selection.select(...this.dataSource.data);
+  }
 
-  // /** The label for the checkbox on the passed row */
-  // checkboxLabel(row?: UserData): string {
-  //   if (!row) {
-  //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-  //   }
-  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.email}`;
-  // }
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Order): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
+  }
 
-  // openLoginDialog() {
-  //   this.loadDialog('add', new User());
-  // }
+  openLoginDialog() {
+    // this.loadDialog('add', new User());
+  }
 
   // loadDialog(option: string, user: User): void {
   //   const dialogRef = this.dialog.open(UserDialogComponent, {
