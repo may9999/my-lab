@@ -7,6 +7,8 @@ import { SEX_TYPE } from '../../models/sex.type'
 import { PAYMENT } from '../../models/payment'
 import { PAYMENT_TYPE } from '../../models/payment.type'
 import { Order } from '../../models/order';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -14,7 +16,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-
+export interface User {
+  name: string;
+}
 @Component({
   selector: 'app-order-dialog',
   templateUrl: './order-dialog.component.html',
@@ -29,6 +33,9 @@ export class OrderDialogComponent implements OnInit {
   payments = PAYMENT;
   paymentTypes = PAYMENT_TYPE;
   // display = true;
+  myControl = new FormControl<string | User>('', [Validators.required]);
+  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  filteredOptions!: Observable<User[]>;
   
   constructor(private dialogRef: MatDialogRef<OrderDialogComponent>,
               // private userService: UserService,
@@ -41,6 +48,13 @@ export class OrderDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string) : this.options.slice();
+      }),
+    );
     this.orderForm = new FormGroup({
       name:  new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -148,6 +162,29 @@ export class OrderDialogComponent implements OnInit {
   //     this.userForm.get('zipCode')?.setValue(this.data.user.zipCode);
   //   }
   // }
+
+  displayFn(user: User): string {
+    return user && user.name ? user.name : '';
+  }
+
+  private _filter(name: string): User[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  clientOnChange(event: any) {
+    // console.log(event.option.value.name);
+    this.orderForm.get('clientId')?.setValue(event.option.value.name);
+  }
+
+  onChange(event: Event) {
+    // Get the new input value
+    const newValue = (event.target as HTMLInputElement).value;
+    // Perform actions based on the new value
+    console.log('Input value changed:', newValue);
+    this.orderForm.get('clientId')?.setValue(newValue);
+  }
 
   close(): void {
     this.dialogRef.close();

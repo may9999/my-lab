@@ -18,6 +18,8 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -65,7 +67,8 @@ import { OrderService } from './components/services/order.service';
     MatPaginatorModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatAutocompleteModule
   ],
   providers: [
     provideClientHydration(),
