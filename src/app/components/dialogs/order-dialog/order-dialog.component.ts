@@ -9,6 +9,7 @@ import { PAYMENT_TYPE } from '../../models/payment.type'
 import { Order } from '../../models/order';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { UserService } from '../../../auth/services/user.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -16,8 +17,17 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-export interface User {
+// export interface User {
+//   name: string;
+// }
+export interface UserData {
+  _id: string;
+  email: string;
+  active: boolean;
+  lastName: string;
   name: string;
+  passReset: boolean;
+  role: string;
 }
 @Component({
   selector: 'app-order-dialog',
@@ -33,12 +43,15 @@ export class OrderDialogComponent implements OnInit {
   payments = PAYMENT;
   paymentTypes = PAYMENT_TYPE;
   // display = true;
-  myControl = new FormControl<string | User>('', [Validators.required]);
-  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
-  filteredOptions!: Observable<User[]>;
+  // myControl = new FormControl<string | User>('', [Validators.required]);
+  // options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  // filteredOptions!: Observable<User[]>;
+  myControl = new FormControl<string | UserData>('', [Validators.required]);
+  options: UserData[] = [];
+  filteredOptions!: Observable<UserData[]>;
   
   constructor(private dialogRef: MatDialogRef<OrderDialogComponent>,
-              // private userService: UserService,
+              private userService: UserService,
               private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dialogRef.disableClose = true;
@@ -48,6 +61,10 @@ export class OrderDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userService.getUsers('active').subscribe(response => {
+      console.log(response);
+      this.options = response;
+    });
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -163,27 +180,39 @@ export class OrderDialogComponent implements OnInit {
   //   }
   // }
 
-  displayFn(user: User): string {
+  // displayFn(user: User): string {
+  //   return user && user.name ? user.name : '';
+  // }
+  displayFn(user: UserData): string {
     return user && user.name ? user.name : '';
   }
 
-  private _filter(name: string): User[] {
+  // private _filter(name: string): User[] {
+  //   const filterValue = name.toLowerCase();
+
+  //   return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  // }
+  private _filter(name: string): UserData[] {
     const filterValue = name.toLowerCase();
 
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
   clientOnChange(event: any) {
-    // console.log(event.option.value.name);
-    this.orderForm.get('clientId')?.setValue(event.option.value.name);
+    this.orderForm.get('clientId')?.setValue(event.option.value._id);
   }
 
   onChange(event: Event) {
     // Get the new input value
     const newValue = (event.target as HTMLInputElement).value;
     // Perform actions based on the new value
-    console.log('Input value changed:', newValue);
-    this.orderForm.get('clientId')?.setValue(newValue);
+    // This logic is if you change or modify the value in the input of the
+    // autocomplete then this will clear the values because that means the user
+    // affected the control and the value selected changed to an incorrect value
+    // that is why we clear this in order to the user correct it and select using
+    // clientOnChange(event: any)
+    this.orderForm.get('clientId')?.setValue(null);
+    this.myControl.setValue(null);
   }
 
   close(): void {
