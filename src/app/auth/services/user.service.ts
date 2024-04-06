@@ -20,6 +20,11 @@ export class UserService {
     return this.http.get<any>(`${environment.apiUrl}/users?status=${status}`, { headers: headers });
   }
 
+  getClients(): Observable<any> {
+    const headers = this.userHeaders();
+    return this.http.get<any>(`${environment.apiUrl}/users?status=active&role=CLIENT`, { headers: headers });
+  }
+
   addUser(userObj: User) {
     const headers = this.adminHeaders();
     return this.http.post<any>(`${environment.apiUrl}/users/register`, userObj, { headers: headers });

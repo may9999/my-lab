@@ -17,9 +17,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-// export interface User {
-//   name: string;
-// }
 export interface UserData {
   _id: string;
   email: string;
@@ -43,9 +40,6 @@ export class OrderDialogComponent implements OnInit {
   payments = PAYMENT;
   paymentTypes = PAYMENT_TYPE;
   // display = true;
-  // myControl = new FormControl<string | User>('', [Validators.required]);
-  // options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
-  // filteredOptions!: Observable<User[]>;
   myControl = new FormControl<string | UserData>('', [Validators.required]);
   options: UserData[] = [];
   filteredOptions!: Observable<UserData[]>;
@@ -61,9 +55,9 @@ export class OrderDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getUsers('active').subscribe(response => {
-      console.log(response);
+    this.userService.getClients().subscribe(response => {
       this.options = response;
+      console.log(response);
     });
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -180,18 +174,10 @@ export class OrderDialogComponent implements OnInit {
   //   }
   // }
 
-  // displayFn(user: User): string {
-  //   return user && user.name ? user.name : '';
-  // }
   displayFn(user: UserData): string {
     return user && user.name ? user.name : '';
   }
 
-  // private _filter(name: string): User[] {
-  //   const filterValue = name.toLowerCase();
-
-  //   return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
-  // }
   private _filter(name: string): UserData[] {
     const filterValue = name.toLowerCase();
 
