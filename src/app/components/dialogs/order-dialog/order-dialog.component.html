@@ -71,7 +71,7 @@
           </div>
           <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
-              <mat-label>Client Code</mat-label>
+              <mat-label>Client Name | Code</mat-label>
               <input type="text" matInput [formControl]="myControl" (change)="onChange($event)" required [matAutocomplete]="auto">
               <mat-autocomplete #auto="matAutocomplete" (optionSelected)="clientOnChange($event)" [displayWith]="displayFn">
                 @for (option of filteredOptions | async; track option) {
@@ -79,7 +79,7 @@
                 }
               </mat-autocomplete>
               @if (myControl.errors?.['required']) {
-                <mat-error>Please select a Client Code</mat-error>
+                <mat-error>Please select a Client Name</mat-error>
               }
             </mat-form-field>
           </div>

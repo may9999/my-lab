@@ -59,11 +59,18 @@ export class OrderDialogComponent implements OnInit {
       this.options = response;
       console.log(response);
     });
+    // filteredOptions implemented for searching by Name or client id
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {
+        let usrItem = [];
         const name = typeof value === 'string' ? value : value?.name;
-        return name ? this._filter(name as string) : this.options.slice();
+        const id = typeof value === 'string' ? value : value?._id;
+        usrItem = name ? this._filterName(name as string) : this.options.slice();
+        if (usrItem.length == 0) {
+          usrItem = id ? this._filterId(id as string) : this.options.slice();
+        }
+        return usrItem;
       }),
     );
     this.orderForm = new FormGroup({
@@ -178,10 +185,14 @@ export class OrderDialogComponent implements OnInit {
     return user && user.name ? user.name : '';
   }
 
-  private _filter(name: string): UserData[] {
+  private _filterName(name: string): UserData[] {
     const filterValue = name.toLowerCase();
+    return (this.options.filter(option => option.name.toLowerCase().includes(filterValue)));
+  }
 
-    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  private _filterId(id: string): UserData[] {
+    const filterValue = id;
+    return (this.options.filter(option => option._id.toLowerCase().includes(filterValue)));
   }
 
   clientOnChange(event: any) {
