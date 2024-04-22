@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SEX_TYPE } from '../../models/sex.type'
 import { PAYMENT } from '../../models/payment'
 import { PAYMENT_TYPE } from '../../models/payment.type'
+import { AGE_TYPE } from '../../models/age.type'
 import { Order } from '../../models/order';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -23,6 +24,7 @@ export interface UserData {
   active: boolean;
   lastName: string;
   name: string;
+  code: string;
   passReset: boolean;
   role: string;
 }
@@ -37,8 +39,9 @@ export class OrderDialogComponent implements OnInit {
   // roleControl = new FormControl<any | null>(null, Validators.required);
   // matcher = new MyErrorStateMatcher();
   sexTypes = SEX_TYPE;
-  payments = PAYMENT;
-  paymentTypes = PAYMENT_TYPE;
+  // payments = PAYMENT;
+  // paymentTypes = PAYMENT_TYPE;
+  ageTypes = AGE_TYPE;
   // display = true;
   myControl = new FormControl<string | UserData>('', [Validators.required]);
   options: UserData[] = [];
@@ -68,7 +71,7 @@ export class OrderDialogComponent implements OnInit {
         const id = typeof value === 'string' ? value : value?._id;
         usrItem = name ? this._filterName(name as string) : this.options.slice();
         if (usrItem.length == 0) {
-          usrItem = id ? this._filterId(id as string) : this.options.slice();
+          usrItem = id ? this._filterCode(id as string) : this.options.slice();
         }
         return usrItem;
       }),
@@ -77,10 +80,11 @@ export class OrderDialogComponent implements OnInit {
       name:  new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required, Validators.pattern('\\b([1-9]|[1-9][0-9]|1[01][0-9]|15[0-9])\\b')]),
+      ageType: new FormControl('', [Validators.required]),
       sexType: new FormControl('', [Validators.required]),
-      clientId: new FormControl('', [Validators.required]),
-      payment: new FormControl('', [Validators.required]),
-      paymentType: new FormControl('', [Validators.required]),
+      code: new FormControl('', [Validators.required]),
+      // payment: new FormControl('', [Validators.required]),
+      // paymentType: new FormControl('', [Validators.required]),
       comments: new FormControl('', []),
       status: new FormControl({value: '', disabled: true})
     });
@@ -190,13 +194,13 @@ export class OrderDialogComponent implements OnInit {
     return (this.options.filter(option => option.name.toLowerCase().includes(filterValue)));
   }
 
-  private _filterId(id: string): UserData[] {
-    const filterValue = id;
-    return (this.options.filter(option => option._id.toLowerCase().includes(filterValue)));
+  private _filterCode(code: string): UserData[] {
+    const filterValue = code;
+    return (this.options.filter(option => option.code.toLowerCase().includes(filterValue)));
   }
 
   clientOnChange(event: any) {
-    this.orderForm.get('clientId')?.setValue(event.option.value._id);
+    this.orderForm.get('code')?.setValue(event.option.value.code);
   }
 
   onChange(event: Event) {
@@ -208,7 +212,7 @@ export class OrderDialogComponent implements OnInit {
     // affected the control and the value selected changed to an incorrect value
     // that is why we clear this in order to the user correct it and select using
     // clientOnChange(event: any)
-    this.orderForm.get('clientId')?.setValue(null);
+    this.orderForm.get('code')?.setValue(null);
     this.myControl.setValue(null);
   }
 

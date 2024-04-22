@@ -45,6 +45,19 @@
           </div>
           <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
+              <mat-label>Age Type</mat-label>
+              <mat-select formControlName="ageType" name="ageType" required>
+                @for (ageType of ageTypes; track ageType) {
+                  <mat-option [value]="ageType">{{ ageType }}</mat-option>
+                }
+              </mat-select>
+              @if (orderForm.get('ageType')?.hasError('required')) {
+                <mat-error>Please select Age Type</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
               <mat-label>Payment</mat-label>
               <mat-select formControlName="payment" name="payment" required>
                 @for (payment of payments; track payment) {
@@ -68,7 +81,7 @@
                 <mat-error>Please select a Payment Type</mat-error>
               }
             </mat-form-field>
-          </div>
+          </div> -->
           <div class="col-xs-12 col-sm-6">
             <mat-form-field class="full-width">
               <mat-label>Client Name | Code</mat-label>
