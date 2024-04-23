@@ -6,11 +6,51 @@
 			<div mat-card-avatar class="example-header-image"></div>
 			<mat-card-title class="car-title-color">CLINICAL STUDIES </mat-card-title>
 		  </mat-card-header>
-		  sdsadsadsa
+		  <form class="form" [formGroup]="clinicalForm" (ngSubmit)="onSubmit()">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<mat-form-field class="full-width">
+						<mat-label>Clave</mat-label>
+						<input matInput formControlName="code" name="code" required type="text">
+						<mat-error *ngIf="clinicalForm.get('code')?.hasError('required')">La Clave es requerida</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<mat-form-field class="full-width">
+						<mat-label>Nombre</mat-label>
+						<input matInput formControlName="name" name="name" required type="text">
+						<mat-error *ngIf="clinicalForm.get('name')?.hasError('required')">El Nombre es requerido</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+				  <mat-form-field class="full-width">
+					<mat-label>Valor de Referencia</mat-label>
+					<textarea matInput formControlName="referenceValues" name="referenceValues" required placeholder=""></textarea>
+					<mat-error *ngIf="clinicalForm.get('referenceValues')?.hasError('required')">Valor de Referencia es Requerido</mat-error>
+				  </mat-form-field>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<mat-form-field class="full-width">
+						<mat-label>Descripción</mat-label>
+						<textarea matInput formControlName="description" name="description" placeholder=""></textarea>
+					</mat-form-field>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<mat-form-field class="full-width">
+						<mat-label>Costo</mat-label>
+						<input matInput formControlName="cost" name="cost" required type="text">
+						<mat-error *ngIf="clinicalForm.get('cost')?.hasError('required')">El Costo es requerido</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-xs-12 col-sm-6" align="end">
+					<button mat-raised-button color="primary" [disabled]="clinicalForm.invalid" type = "submit">Submit</button>
+				</div>
+			</div>
+		  </form>
 		  <mat-card-actions align="end">
 			<!-- <button mat-raised-button color="primary" *ngIf="!active" class="margin-bnt" type = "button" (click)="activateUsers()">Activate User</button>
 			<button mat-raised-button color="warn" *ngIf="active" class="margin-bnt" type = "button" (click)="inactivateUsers()">Inactivate User</button> -->
-			<button mat-raised-button color="primary" type = "button" (click)="openLoginDialog()">Add Order</button>
+			<!-- <button mat-raised-button color="primary" type = "button" (click)="openLoginDialog()">Add Order</button> -->
 		  </mat-card-actions>
 	  </mat-card>
 	</div>

@@ -30,28 +30,28 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto mt-2">
-          <li class="nav-item" *ngIf ="authenticated && isAdmin">
+          <!-- <li class="nav-item" *ngIf ="authenticated && isAdmin">
             <a class="nav-link" [routerLink]="'/home'">Opcion 1 </a>
-          </li>
+          </li> -->
           <li class="nav-item" *ngIf ="authenticated  && isAdmin">
-            <a class="nav-link" [routerLink]="'/order'">Orders</a>
+            <a class="nav-link" [routerLink]="'/order'">Ordenes</a>
           </li>
           <li class="nav-item" *ngIf ="authenticated  && isAdmin">
             <a class="nav-link" [routerLink]="'/clinical-studies'">Estudios</a>
           </li>
            <li class="nav-item" *ngIf ="authenticated  && isAdmin">
-            <a class="nav-link" [routerLink]="'/user'">Users</a>
+            <a class="nav-link" [routerLink]="'/user'">Usuarios</a>
           </li>
           <li class="nav-item" *ngIf ="authenticated  && isAdmin">
             <a class="nav-link" href="contact.html">Reportes</a>
           </li>
           
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a *ngIf ="authenticated  && isAdmin" class="nav-link" [routerLink]="'/conf'">Admin </a>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a *ngIf ="authenticated  && isAdmin" class="nav-link" [routerLink]="'/email'">Emails </a>
-          </li>
+          </li> -->
         </ul>
         <!-- <button *ngIf ="!authenticate" mat-stroked-button color="primary" style="background-color: #FC501F; color: #FFFFFF; border-color: #FFFFFF;" (click)="openLoginDialog()">
           <i class="fa fa-sign-in"></i>&nbsp;Sign In
