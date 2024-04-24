@@ -148,29 +148,29 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
     });
   }
 
-//   // inactivateUsers(): void {
-//   //   if (this.selection.hasValue()) {
-//   //     for (const usr of this.selection.selected) {
-//   //       this.userService.activateUser(usr._id, false).subscribe(() => {
-//   //         this.selection.clear();
-//   //         this.loadUsersTable();
-//   //       });
-//   //     }
-//   //   }
-//   // }
+  inactivate(): void {
+    if (this.selection.hasValue()) {
+      for (const study of this.selection.selected) {
+        this.clinicalSvc.activateStudy(study._id, false).subscribe(() => {
+          this.selection.clear();
+          this.loadTable();
+        });
+      }
+    }
+  }
 
-//   // activateUsers(): void {
-//   //   if (this.selection.hasValue()) {
-//   //     for (const usr of this.selection.selected) {
-//   //       this.userService.activateUser(usr._id, true).subscribe(() => {
-//   //         this.selection.clear();
-//   //         this.loadUsersTable();
-//   //       });
-//   //     }
-//   //   }
-//   // }
+  activate(): void {
+    if (this.selection.hasValue()) {
+      for (const study of this.selection.selected) {
+        this.clinicalSvc.activateStudy(study._id, true).subscribe(() => {
+          this.selection.clear();
+          this.loadTable();
+        });
+      }
+    }
+  }
 
-//   // editUser(user: any): void {
-//   //   this.loadDialog('edit', user);
-//   // }
+  ClinicalStudiesStatus() {
+    this.loadTable();
+  }
 }

@@ -31,13 +31,13 @@ export class ClinicalStudiesService {
     return this.http.patch<any>(`${environment.apiUrl}/studies/${id}`, studyObj, { headers: headers });
   }
 
-  // activateUser(id: string, activate: boolean) {
-  //   const headers = this.adminHeaders();
-  //   const activeObj = {
-  //     active: activate
-  //   }
-  //   return this.http.put<any>(`${environment.apiUrl}/users//activate/${id}`, activeObj, { headers: headers });
-  // }
+  activateStudy(id: string, activate: boolean) {
+    const headers = this.adminHeaders();
+    const activeObj = {
+      active: activate
+    }
+    return this.http.put<any>(`${environment.apiUrl}/studies//activate/${id}`, activeObj, { headers: headers });
+  }
 
   private getCurrentUserId() {
     return localStorage.getItem(localStoageKeys.ID)? localStorage.getItem(localStoageKeys.ID): '';

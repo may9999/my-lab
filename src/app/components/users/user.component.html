@@ -4,11 +4,11 @@
 	  <mat-card>
 		  <mat-card-header>
 			<div mat-card-avatar class="example-header-image"></div>
-			<mat-card-title class="car-title-color">USERS </mat-card-title>
+			<mat-card-title class="car-title-color">USUARIOS </mat-card-title>
 		  </mat-card-header>
 		  <section class="example-section">
 			<mat-checkbox class="example-margin" [(ngModel)]="active"
-			(ngModelChange)="userStatus()">Active Users</mat-checkbox>
+			(ngModelChange)="userStatus()">Usuatios Activos</mat-checkbox>
 		  </section>
 		  <mat-form-field>
 			<mat-label>Filter</mat-label>
@@ -79,9 +79,9 @@
 			<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 		  </div>
 		  <mat-card-actions align="end">
-			<button mat-raised-button color="primary" *ngIf="!active" class="margin-bnt" type = "button" (click)="activateUsers()">Activate User</button>
-			<button mat-raised-button color="warn" *ngIf="active" class="margin-bnt" type = "button" (click)="inactivateUsers()">Inactivate User</button>
-			<button mat-raised-button color="primary" type = "button" (click)="openLoginDialog()">Add User</button>
+			<button mat-raised-button color="primary" *ngIf="!active" class="margin-bnt" type = "button" (click)="activateUsers()">Activar Usuario(s)</button>
+			<button mat-raised-button color="warn" *ngIf="active" class="margin-bnt" type = "button" (click)="inactivateUsers()">Inactivar Usuario(s)</button>
+			<button mat-raised-button color="primary" type = "button" (click)="openLoginDialog()">Agregar Usuario</button>
 		  </mat-card-actions>
 	  </mat-card>
 	</div>
