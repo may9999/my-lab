@@ -160,7 +160,11 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ClinicalStudiesStatus() {
+  clinicalStudiesStatus() {
     this.loadTable();
+  }
+
+  package() {
+
   }
 }
