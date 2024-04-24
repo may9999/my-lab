@@ -41,7 +41,7 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
       code: new FormControl('', [Validators.required]),
       name:  new FormControl('', [Validators.required]),
       referenceValues:  new FormControl('', [Validators.required]),
-      cost:  new FormControl('', [Validators.required]),
+      cost:  new FormControl('', [Validators.required, Validators.pattern('^[0-9]{1,5}(?:.[0-9]{1,2})?$')]),
       description: new FormControl('', []),
     });
   }

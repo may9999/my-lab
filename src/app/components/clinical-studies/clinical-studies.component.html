@@ -39,8 +39,9 @@
 				<div class="col-xs-12 col-sm-6">
 					<mat-form-field class="full-width">
 						<mat-label>Costo</mat-label>
-						<input matInput formControlName="cost" name="cost" required type="text">
+						<input matInput formControlName="cost" name="cost" required type="number">
 						<mat-error *ngIf="clinicalForm.get('cost')?.hasError('required')">El Costo es requerido</mat-error>
+						<mat-error *ngIf="clinicalForm.value.cost">Costo debe ser un rango entre 0 - 99999.99</mat-error>
 					</mat-form-field>
 				</div>
 				<div class="col-xs-12 col-sm-6" align="end">
