@@ -1,0 +1,55 @@
+<form class="form" [formGroup]="clinicalForm" (ngSubmit)="onSubmit()">
+	<div class="row margin-row">
+		<div class="col-xs-12 col-sm-12">
+		  <mat-card>
+			<mat-card-header>
+			  <div mat-card-avatar class="example-header-image"></div>
+			  <mat-card-title class="car-title-color"> {{ this.data.option.toUpperCase() }} PAQUETES CLINICOS </mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Clave</mat-label>
+              <input matInput formControlName="code" name="code" required type="text">
+              <mat-error *ngIf="clinicalForm.get('code')?.hasError('required')">La Clave es requerida</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" name="name" required type="text">
+              <mat-error *ngIf="clinicalForm.get('name')?.hasError('required')">El Nombre es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Descripción</mat-label>
+              <textarea matInput formControlName="description" name="description" placeholder=""></textarea>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <mat-form-field class="full-width">
+              <mat-label>Costo</mat-label>
+              <input matInput formControlName="cost" name="cost" required type="number">
+              <mat-error *ngIf="clinicalForm.get('cost')?.hasError('required')">El Costo es requerido</mat-error>
+              <mat-error *ngIf="clinicalForm.value.cost">Costo debe ser un rango entre 0 - 99999.99</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+			</mat-card-content>
+      <div class="card-scrollable">
+        <mat-list *ngFor="let pack of data.package, let i = index">
+          <!-- <mat-list-item *ngFor="let pack of data.package, let i = index">{{ pack.name }}</mat-list-item> -->
+          <mat-list-item>{{ pack.code }} : {{ pack.name }}</mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+			<mat-card-actions align="end">
+        <button mat-raised-button color="primary" class="margin-bnt" type = "button" (click)="close()">Cerrar</button>
+				<button mat-raised-button color="primary" [disabled]="clinicalForm.invalid" type = "submit">Guardar</button>
+			</mat-card-actions>
+		  </mat-card>
+		</div>
+	  </div>
+</form>  

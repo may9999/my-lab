@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClinicalStudiesService } from '../services/clinical-studies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClinicalStudyDialogComponent } from '../dialogs/clinical-study-dialog/clinical-study-dialog.component';
+import { PackageDialogComponent } from '../dialogs/package-dialog/package-dialog.component';
 
 export interface ClinicalStudyData {
   _id: string;
@@ -60,6 +61,7 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
         next: () => {
           // this.close();
           this.clinicalForm.reset();
+          this.loadTable();
         },
         error: e => {
           console.log(e.error);
@@ -165,6 +167,19 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   }
 
   package() {
+    if (this.selection.hasValue()) {
+      const dialogRef = this.dialog.open(PackageDialogComponent, {
+        width: '70%',
+        height: 'auto',
+        data: { 
+          option: 'add' ,
+          package: this.selection.selected
+        }
+      });
 
+      dialogRef.afterClosed().subscribe(result => {
+        // this,this.loadTable();
+      });
+    }
   }
 }

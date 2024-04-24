@@ -19,6 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+
 
 
 // Components
@@ -34,6 +37,7 @@ import { LoginDialogComponent } from './components/dialogs/login-dialog/login-di
 import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialog.component';
 import { OrderDialogComponent } from './components/dialogs/order-dialog/order-dialog.component';
 import { ClinicalStudyDialogComponent } from './components/dialogs/clinical-study-dialog/clinical-study-dialog.component';
+import { PackageDialogComponent } from './components/dialogs/package-dialog/package-dialog.component';
 
 // Services
 import { UserService } from './auth/services/user.service';
@@ -50,6 +54,7 @@ import { ClinicalStudiesService } from './components/services/clinical-studies.s
     UserDialogComponent,
     OrderDialogComponent,
     ClinicalStudyDialogComponent,
+    PackageDialogComponent,
     UserComponent,
     OrderComponent,
     ClinicalStudiesComponent
@@ -73,7 +78,9 @@ import { ClinicalStudiesService } from './components/services/clinical-studies.s
     MatCheckboxModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [
     provideClientHydration(),

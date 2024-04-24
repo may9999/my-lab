@@ -20,11 +20,11 @@ export interface ClinicalStudyData {
   description: string;
 }
 @Component({
-  selector: 'app-clinical-study-dialog',
-  templateUrl: './clinical-study-dialog.component.html',
-  styleUrls: ['./clinical-study-dialog.component.scss'],
+  selector: 'app-package-dialog',
+  templateUrl: './package-dialog.component.html',
+  styleUrls: ['./package-dialog.component.scss'],
 })
-export class ClinicalStudyDialogComponent implements OnInit {
+export class PackageDialogComponent implements OnInit {
   clinicalForm!: FormGroup;
   // roleSelected!: string;
   // roleControl = new FormControl<any | null>(null, Validators.required);
@@ -33,7 +33,7 @@ export class ClinicalStudyDialogComponent implements OnInit {
   // paymentTypes = PAYMENT_TYPE;
   // display = true;
   
-  constructor(private dialogRef: MatDialogRef<ClinicalStudyDialogComponent>,
+  constructor(private dialogRef: MatDialogRef<PackageDialogComponent>,
               private clinicalSvc: ClinicalStudiesService,
               private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -47,18 +47,16 @@ export class ClinicalStudyDialogComponent implements OnInit {
     this.clinicalForm = new FormGroup({
       code: new FormControl('', [Validators.required]),
       name:  new FormControl('', [Validators.required]),
-      referenceValues:  new FormControl('', [Validators.required]),
       cost:  new FormControl('', [Validators.required, Validators.pattern('^[0-9]{1,5}(?:.[0-9]{1,2})?$')]),
       description: new FormControl('', []),
     });
 
-    if (this.data.option === 'edit') {
-      this.clinicalForm.get('code')?.setValue(this.data.study.code);
-      this.clinicalForm.get('name')?.setValue(this.data.study.name);
-      this.clinicalForm.get('referenceValues')?.setValue(this.data.study.referenceValues);
-      this.clinicalForm.get('cost')?.setValue(this.data.study.cost);
-      this.clinicalForm.get('description')?.setValue(this.data.study.description); 
-    }
+    // if (this.data.option === 'edit') {
+    //   this.clinicalForm.get('code')?.setValue(this.data.study.code);
+    //   this.clinicalForm.get('name')?.setValue(this.data.study.name);
+    //   this.clinicalForm.get('cost')?.setValue(this.data.study.cost);
+    //   this.clinicalForm.get('description')?.setValue(this.data.study.description); 
+    // }
   }
 
   onSubmit(): void {
