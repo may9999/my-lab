@@ -33,6 +33,7 @@ import { ClinicalStudiesComponent } from './components/clinical-studies/clinical
 import { LoginDialogComponent } from './components/dialogs/login-dialog/login-dialog.component';
 import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialog.component';
 import { OrderDialogComponent } from './components/dialogs/order-dialog/order-dialog.component';
+import { ClinicalStudyDialogComponent } from './components/dialogs/clinical-study-dialog/clinical-study-dialog.component';
 
 // Services
 import { UserService } from './auth/services/user.service';
@@ -48,6 +49,7 @@ import { ClinicalStudiesService } from './components/services/clinical-studies.s
     LoginDialogComponent,
     UserDialogComponent,
     OrderDialogComponent,
+    ClinicalStudyDialogComponent,
     UserComponent,
     OrderComponent,
     ClinicalStudiesComponent

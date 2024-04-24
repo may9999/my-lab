@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClinicalStudiesService } from '../services/clinical-studies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClinicalStudyDialogComponent } from '../dialogs/clinical-study-dialog/clinical-study-dialog.component';
 
 export interface ClinicalStudyData {
   _id: string;
@@ -30,7 +31,9 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   selection = new SelectionModel<ClinicalStudyData>(true, []);
 
-  constructor(private clinicalSvc: ClinicalStudiesService, private snackBar: MatSnackBar) {
+  constructor(private clinicalSvc: ClinicalStudiesService, 
+              private snackBar: MatSnackBar, 
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -41,10 +44,6 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
       cost:  new FormControl('', [Validators.required]),
       description: new FormControl('', []),
     });
-
-    // this.clinicalSvc.getClinicalStudies('active').subscribe(response => {
-    //   console.log(response);
-    // });
   }
 
   ngAfterViewInit() {
@@ -126,24 +125,28 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
   }
 
+  editClinicalStudy(study: ClinicalStudyData): void {
+    this.loadDialog('edit', study);
+  }
+
   // openLoginDialog() {
   //   this.loadDialog('add', new ClinicalStudy());
   // }
 
-//   loadDialog(option: string, order: ClinicalStudy): void {
-//     // const dialogRef = this.dialog.open(OrderDialogComponent, {
-//     //   width: '70%',
-//     //   height: 'auto',
-//     //   data: { 
-//     //     option: option ,
-//     //     order: order
-//     //   }
-//     // });
+  loadDialog(option: string, study: ClinicalStudyData): void {
+    const dialogRef = this.dialog.open(ClinicalStudyDialogComponent, {
+      width: '70%',
+      height: 'auto',
+      data: { 
+        option: option ,
+        study: study
+      }
+    });
 
-//     // dialogRef.afterClosed().subscribe(result => {
-//     //   this,this.loadUsersTable();
-//     // });
-//   }
+    dialogRef.afterClosed().subscribe(result => {
+      this,this.loadTable();
+    });
+  }
 
 //   // inactivateUsers(): void {
 //   //   if (this.selection.hasValue()) {

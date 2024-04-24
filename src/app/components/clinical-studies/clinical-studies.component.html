@@ -6,6 +6,7 @@
 			<div mat-card-avatar class="example-header-image"></div>
 			<mat-card-title class="car-title-color">CLINICAL STUDIES </mat-card-title>
 		  </mat-card-header>
+		  <br />
 		  <form class="form" [formGroup]="clinicalForm" (ngSubmit)="onSubmit()">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
@@ -49,9 +50,7 @@
 		  </form>
 
 		  <br />
-		  <br />
-
-
+		  
 		  <mat-form-field>
 			<mat-label>Filtro</mat-label>
 			<input matInput (keyup)="applyFilter($event)" placeholder="" #input>
@@ -80,7 +79,12 @@
 			  <!-- Code Column -->
 			  <ng-container matColumnDef="code">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header> Clave </th>
-				<td mat-cell *matCellDef="let row"> {{ row.code }} </td>
+				<!-- <td mat-cell *matCellDef="let row"> {{ row.code }} </td> -->
+				<td mat-cell *matCellDef="let row">
+					<button mat-button color="primary" (click)="editClinicalStudy(row)">
+						{{ row.code }}
+					</button>
+				</td>
 			  </ng-container>
 
 			  <!-- Name Column -->
