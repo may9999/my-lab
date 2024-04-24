@@ -30,7 +30,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   selection = new SelectionModel<UserData>(true, []);
 
-  constructor(private userService: UserService, public dialog: MatDialog /*private formBuilder: FormBuilder*/) {
+  constructor(private userService: UserService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {

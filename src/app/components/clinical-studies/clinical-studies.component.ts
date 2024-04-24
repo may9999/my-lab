@@ -3,24 +3,34 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { ClinicalStudy } from '../models/clinical.study';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ClinicalStudiesService } from '../services/clinical-studies.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
+export interface ClinicalStudyData {
+  _id: string;
+  code: string;
+  name: string;
+  referenceValues: string;
+  cost: number;
+  description: string;
+}
 @Component({
   selector: 'app-clinical-studies',
   templateUrl: './clinical-studies.component.html',
   styleUrls: ['./clinical-studies.component.scss']
 })
 export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
+  public active: boolean = true;
   clinicalForm!: FormGroup;
-  // displayedColumns: string[] = ['select', 'name', 'code'];
-  // dataSource!: MatTableDataSource<ClinicalStudy>;
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // @ViewChild(MatSort) sort!: MatSort;
-  // selection = new SelectionModel<ClinicalStudy>(true, []);
+  displayedColumns: string[] = ['select', 'code', 'name', 'referenceValues', 'cost', 'description'];
+  dataSource!: MatTableDataSource<ClinicalStudyData>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  selection = new SelectionModel<ClinicalStudyData>(true, []);
 
-  constructor(public dialog: MatDialog) {
+  constructor(private clinicalSvc: ClinicalStudiesService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -30,16 +40,11 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
       referenceValues:  new FormControl('', [Validators.required]),
       cost:  new FormControl('', [Validators.required]),
       description: new FormControl('', []),
-      // lastName: new FormControl('', [Validators.required]),
-      // age: new FormControl('', [Validators.required, Validators.pattern('\\b([1-9]|[1-9][0-9]|1[01][0-9]|15[0-9])\\b')]),
-      // ageType: new FormControl('', [Validators.required]),
-      // sexType: new FormControl('', [Validators.required]),
-      
-      // payment: new FormControl('', [Validators.required]),
-      // paymentType: new FormControl('', [Validators.required]),
-      
-      // status: new FormControl({value: '', disabled: true})
     });
+
+    // this.clinicalSvc.getClinicalStudies('active').subscribe(response => {
+    //   console.log(response);
+    // });
   }
 
   ngAfterViewInit() {
@@ -47,59 +52,79 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(): void {
-  }
-
-  private loadTable() {
-    // const status = this.active ? 'active' : 'inactive';
-
-    // this.userService.getUsers(status).subscribe(response => {
-    //   this.dataSource = new MatTableDataSource(response);
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
+     // Handle form submission here
+     if (this.clinicalForm.valid) {
+      // Additional logic to authenticate user or 
+      // perform other actions
+      
+      this.clinicalSvc.addStudy(this.clinicalForm.value).subscribe({
+        next: () => {
+          // this.close();
+          this.clinicalForm.reset();
+        },
+        error: e => {
+          console.log(e.error);
+          this.snackBar.open('ERROR', e.error.message, {
+            duration: 5000 // 5 seconds
+          });
+        }
+      });
+    }
+    // this.clinicalSvc.addStudy().subscribe(() => {
     // });
   }
 
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
+  private loadTable() {
+    const status = this.active ? 'active' : 'inactive';
 
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
+    this.clinicalSvc.getClinicalStudies(status).subscribe(response => {
+      this.dataSource = new MatTableDataSource(response);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
   // orderStatus() {
   //  this.loadUsersTable();
   // }
 
-  // /** Whether the number of selected elements matches the total number of rows. */
-  // isAllSelected() {
-  //   const numSelected = this.selection.selected.length;
-  //   if (this.dataSource) {
-  //     const numRows = this.dataSource.data.length;
-  //     return numSelected === numRows;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    if (this.dataSource) {
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    } else {
+      return false;
+    }
+  }
 
-  // // /** Selects all rows if they are not all selected; otherwise clear selection. */
-  // // toggleAllRows() {
-  // //   if (this.isAllSelected()) {
-  // //     this.selection.clear();
-  // //     return;
-  // //   }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
 
-  // //   this.selection.select(...this.dataSource.data);
-  // // }
+    this.selection.select(...this.dataSource.data);
+  }
 
-  // /** The label for the checkbox on the passed row */
-  // checkboxLabel(row?: ClinicalStudy): string {
-  //   if (!row) {
-  //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-  //   }
-  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
-  // }
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: ClinicalStudyData): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
+  }
 
   // openLoginDialog() {
   //   this.loadDialog('add', new ClinicalStudy());

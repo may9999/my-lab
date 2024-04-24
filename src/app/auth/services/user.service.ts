@@ -43,11 +43,11 @@ export class UserService {
     return this.http.put<any>(`${environment.apiUrl}/users//activate/${id}`, activeObj, { headers: headers });
   }
 
-  public getCurrentUserId() {
+  private getCurrentUserId() {
     return localStorage.getItem(localStoageKeys.ID)? localStorage.getItem(localStoageKeys.ID): '';
   }
 
-  adminHeaders() {
+  private adminHeaders() {
     const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
     const id = this.getCurrentUserId();
     const headers = new HttpHeaders()
@@ -58,7 +58,7 @@ export class UserService {
     return headers;
   }
 
-  userHeaders() {
+  private userHeaders() {
     const token = localStorage.getItem(localStoageKeys.REFRESH_TOKEN);
     const id = this.getCurrentUserId();
     const headers = new HttpHeaders()

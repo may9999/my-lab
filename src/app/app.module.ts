@@ -37,6 +37,7 @@ import { OrderDialogComponent } from './components/dialogs/order-dialog/order-di
 // Services
 import { UserService } from './auth/services/user.service';
 import { OrderService } from './components/services/order.service';
+import { ClinicalStudiesService } from './components/services/clinical-studies.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { OrderService } from './components/services/order.service';
     provideClientHydration(),
     provideHttpClient(withFetch()),
     UserService,
-    OrderService
+    OrderService,
+    ClinicalStudiesService
   ],
   bootstrap: [AppComponent]
 })
