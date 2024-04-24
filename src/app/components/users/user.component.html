@@ -79,8 +79,8 @@
 			<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 		  </div>
 		  <mat-card-actions align="end">
-			<button mat-raised-button color="primary" *ngIf="!active" class="margin-bnt" type = "button" (click)="activateUsers()">Activar Usuario(s)</button>
-			<button mat-raised-button color="warn" *ngIf="active" class="margin-bnt" type = "button" (click)="inactivateUsers()">Inactivar Usuario(s)</button>
+			<button mat-raised-button color="primary" *ngIf="!active && selection.hasValue()" class="margin-bnt" type = "button" (click)="activateUsers()">Activar Usuario(s)</button>
+			<button mat-raised-button color="warn" *ngIf="active && selection.hasValue()" class="margin-bnt" type = "button" (click)="inactivateUsers()">Inactivar Usuario(s)</button>
 			<button mat-raised-button color="primary" type = "button" (click)="openLoginDialog()">Agregar Usuario</button>
 		  </mat-card-actions>
 	  </mat-card>

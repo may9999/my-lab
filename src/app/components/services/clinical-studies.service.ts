@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment, localStoageKeys } from '../../../environments/environment';
-import { Order } from '../models/order';
 import { ClinicalStudy } from '../models/clinical.study';
 
 @Injectable({
@@ -10,11 +9,6 @@ import { ClinicalStudy } from '../models/clinical.study';
 })
 export class ClinicalStudiesService {
   constructor(private http: HttpClient) {}
-
-  // getUser(id: string): Observable<any> {
-  //   const headers = this.userHeaders();
-  //   return this.http.get<any>(`${environment.apiUrl}/users/${id}`, { headers: headers });
-  // }
 
   getClinicalStudies(status: string): Observable<any> { // actice - inactive
     const headers = this.userHeaders();

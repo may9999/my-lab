@@ -128,8 +128,8 @@
 		  </div>
 
 		  <mat-card-actions align="end">
-			<button mat-raised-button color="primary" *ngIf="!active" class="margin-bnt" type = "button" (click)="activate()">Activar Estudio(s)</button>
-			<button mat-raised-button color="warn" *ngIf="active" class="margin-bnt" type = "button" (click)="inactivate()">Inactivar Estudio(s)</button>
+			<button mat-raised-button color="primary" *ngIf="!active && selection.hasValue()" class="margin-bnt" type = "button" (click)="activate()">Activar Estudio(s)</button>
+			<button mat-raised-button color="warn" *ngIf="active && selection.hasValue()" class="margin-bnt" type = "button" (click)="inactivate()">Inactivar Estudio(s)</button>
 			<!-- <button mat-raised-button color="primary" type = "button" (click)="openLoginDialog()">Add Order</button> -->
 		  </mat-card-actions>
 	  </mat-card>

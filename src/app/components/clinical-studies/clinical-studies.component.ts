@@ -69,8 +69,6 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
         }
       });
     }
-    // this.clinicalSvc.addStudy().subscribe(() => {
-    // });
   }
 
   private loadTable() {
@@ -91,10 +89,6 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  // orderStatus() {
-  //  this.loadUsersTable();
-  // }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -128,10 +122,6 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   editClinicalStudy(study: ClinicalStudyData): void {
     this.loadDialog('edit', study);
   }
-
-  // openLoginDialog() {
-  //   this.loadDialog('add', new ClinicalStudy());
-  // }
 
   loadDialog(option: string, study: ClinicalStudyData): void {
     const dialogRef = this.dialog.open(ClinicalStudyDialogComponent, {
