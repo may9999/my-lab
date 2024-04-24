@@ -26,10 +26,10 @@ export class ClinicalStudiesService {
     return this.http.post<any>(`${environment.apiUrl}/studies`, studyObj, { headers: headers });
   }
 
-  // updateUser(userObj: User, id: string) {
-  //   const headers = this.adminHeaders();
-  //   return this.http.patch<any>(`${environment.apiUrl}/users/${id}`, userObj, { headers: headers });
-  // }
+  updateStudy(studyObj: ClinicalStudy, id: string) {
+    const headers = this.adminHeaders();
+    return this.http.patch<any>(`${environment.apiUrl}/studies/${id}`, studyObj, { headers: headers });
+  }
 
   // activateUser(id: string, activate: boolean) {
   //   const headers = this.adminHeaders();

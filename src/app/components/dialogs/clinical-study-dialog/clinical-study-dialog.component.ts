@@ -5,6 +5,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../auth/services/user.service';
+import { ClinicalStudiesService } from '../../services/clinical-studies.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -35,7 +36,7 @@ export class ClinicalStudyDialogComponent implements OnInit {
   // display = true;
   
   constructor(private dialogRef: MatDialogRef<ClinicalStudyDialogComponent>,
-              private userService: UserService,
+              private clinicalSvc: ClinicalStudiesService,
               private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dialogRef.disableClose = true;
@@ -63,40 +64,43 @@ export class ClinicalStudyDialogComponent implements OnInit {
   }
 
   onSubmit(): void {
-    //  // Handle form submission here
-    // if (this.userForm.valid) {
-    //   // Additional logic to authenticate user or 
-    //   // perform other actions
-    //   if (this.data.option === 'add') {
-    //     this.userService.addUser(this.userForm.value).subscribe({
-    //       next: () => {
-    //         this.close();
-    //       },
-    //       error: e => {
-    //         console.log(e.error);
-    //         this.snackBar.open('ERROR', e.error.message, {
-    //           duration: 5000 // 5 seconds
-    //         });
-    //       }
-    //     });
-    //   } else if (this.data.option === 'edit'){ // update user
-    //     this.userService.updateUser(this.userForm.value, this.data.user._id).subscribe({
-    //      next: () => {
-    //       this.close();
-    //      }, 
-    //      error: e => {
-    //       console.log(e.error);
-    //       this.snackBar.open('ERROR', e.error.message, {
-    //         duration: 5000 // 5 seconds
-    //       });
-    //      } 
-    //     });
-    //   } else {
-    //     this.snackBar.open('ERROR', 'Invalid Option', {
-    //       duration: 5000 // 5 seconds
-    //     });
-    //   }
-    // }
+     // Handle form submission here
+    if (this.clinicalForm.valid) {
+      // Additional logic to authenticate user or 
+      // perform other actions
+
+
+      // if (this.data.option === 'add') {
+      //   this.userService.addUser(this.userForm.value).subscribe({
+      //     next: () => {
+      //       this.close();
+      //     },
+      //     error: e => {
+      //       console.log(e.error);
+      //       this.snackBar.open('ERROR', e.error.message, {
+      //         duration: 5000 // 5 seconds
+      //       });
+      //     }
+      //   });
+      // } else 
+      if (this.data.option === 'edit'){ // update user
+        this.clinicalSvc.updateStudy(this.clinicalForm.value, this.data.study._id).subscribe({
+         next: () => {
+          this.close();
+         }, 
+         error: e => {
+          console.log(e.error);
+          this.snackBar.open('ERROR', e.error.message, {
+            duration: 5000 // 5 seconds
+          });
+         } 
+        });
+      } else {
+        this.snackBar.open('ERROR', 'Invalid Option', {
+          duration: 5000 // 5 seconds
+        });
+      }
+    }
   }
 
   // roleOnChange(event: any) {
