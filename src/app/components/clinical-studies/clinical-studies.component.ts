@@ -9,6 +9,7 @@ import { ClinicalStudiesService } from '../services/clinical-studies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClinicalStudyDialogComponent } from '../dialogs/clinical-study-dialog/clinical-study-dialog.component';
 import { PackageDialogComponent } from '../dialogs/package-dialog/package-dialog.component';
+import { PackageStudiesService } from '../services/package-studies.service';
 
 export interface ClinicalStudyData {
   _id: string;
@@ -33,6 +34,7 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<ClinicalStudyData>(true, []);
 
   constructor(private clinicalSvc: ClinicalStudiesService, 
+              private packageSvc: PackageStudiesService,
               private snackBar: MatSnackBar, 
               public dialog: MatDialog) {
   }
@@ -49,6 +51,7 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.loadTable();
+    this.loadPackages();
   }
 
   onSubmit(): void {
@@ -178,8 +181,15 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        // this,this.loadTable();
+        this.loadPackages();
+        this.selection.clear();
       });
     }
+  }
+
+  loadPackages() {
+    this.packageSvc.getPackageStudies('active').subscribe(response => {
+      console.log(response);
+    });
   }
 }

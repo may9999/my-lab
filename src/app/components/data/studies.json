@@ -1,0 +1,240 @@
+[
+    {
+        "_id": "6629c273477537ce6eda2ec0",
+        "code": "TEST343SS",
+        "name": "BIOQUIMICO",
+        "cost": 1000,
+        "studies": [
+            {
+                "_id": "662971c08f81f21e2a5a6abe",
+                "code": "SSD32XC",
+                "name": "BIOMETRIA HEMATICA",
+                "referenceValues": "43",
+                "cost": 190.9,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:55:28.047Z",
+                "__v": 0
+            },
+            {
+                "_id": "662971d48f81f21e2a5a6ac3",
+                "code": "GDD344",
+                "name": "EXAMEN GENERAL DE ORINA (EGO)",
+                "referenceValues": "5",
+                "cost": 300,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:55:48.220Z",
+                "__v": 0
+            },
+            {
+                "_id": "662971e68f81f21e2a5a6ac8",
+                "code": "K2332SD",
+                "name": "QUIMICA SANGUINEA (AQUI VARIA, TE LO EXPLICO POR AUDIO)",
+                "referenceValues": "23",
+                "cost": 400,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:56:06.985Z",
+                "__v": 0
+            }
+        ],
+        "description": "TEST",
+        "creationDate": "2024-04-25T02:39:47.675Z"
+    },
+    {
+        "_id": "6629da5d3c13caac27ed5fb3",
+        "code": "GH4354SDF",
+        "name": "PREOPERATORIO",
+        "cost": 3900,
+        "studies": [
+            {
+                "_id": "662971c08f81f21e2a5a6abe",
+                "code": "SSD32XC",
+                "name": "BIOMETRIA HEMATICA",
+                "referenceValues": "43",
+                "cost": 190.9,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:55:28.047Z",
+                "__v": 0
+            },
+            {
+                "_id": "662971d48f81f21e2a5a6ac3",
+                "code": "GDD344",
+                "name": "EXAMEN GENERAL DE ORINA (EGO)",
+                "referenceValues": "5",
+                "cost": 300,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:55:48.220Z",
+                "__v": 0
+            },
+            {
+                "_id": "662971e68f81f21e2a5a6ac8",
+                "code": "K2332SD",
+                "name": "QUIMICA SANGUINEA (AQUI VARIA, TE LO EXPLICO POR AUDIO)",
+                "referenceValues": "23",
+                "cost": 400,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:56:06.985Z",
+                "__v": 0
+            },
+            {
+                "_id": "662972238f81f21e2a5a6ad2",
+                "code": "SD2321AS",
+                "name": "GRUPO SANGUINEO Y FACTOR RH",
+                "referenceValues": "5",
+                "cost": 888,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:57:07.047Z",
+                "__v": 0
+            },
+            {
+                "_id": "662972cc8f81f21e2a5a6aef",
+                "code": "334DF",
+                "name": "TIEMPO DE PROTROMBINA",
+                "referenceValues": "4",
+                "cost": 300,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:59:56.458Z",
+                "__v": 0
+            },
+            {
+                "_id": "662972ef8f81f21e2a5a6af9",
+                "code": "5676DDFDFDS",
+                "name": "TIEMPO DE TROMBOPLASTINA PARCIAL",
+                "referenceValues": "56",
+                "cost": 400,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T21:00:31.330Z",
+                "__v": 0
+            }
+        ],
+        "description": "OPERATORIO PAQUETE",
+        "creationDate": "2024-04-25T04:21:49.777Z"
+    },
+    {
+        "_id": "6629db563c13caac27ed5fc3",
+        "code": "76DFG344",
+        "name": "PRENATAL",
+        "cost": 2500,
+        "studies": [
+            {
+                "_id": "662971c08f81f21e2a5a6abe",
+                "code": "SSD32XC",
+                "name": "BIOMETRIA HEMATICA",
+                "referenceValues": "43",
+                "cost": 190.9,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:55:28.047Z",
+                "__v": 0
+            },
+            {
+                "_id": "662971d48f81f21e2a5a6ac3",
+                "code": "GDD344",
+                "name": "EXAMEN GENERAL DE ORINA (EGO)",
+                "referenceValues": "5",
+                "cost": 300,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:55:48.220Z",
+                "__v": 0
+            },
+            {
+                "_id": "662971e68f81f21e2a5a6ac8",
+                "code": "K2332SD",
+                "name": "QUIMICA SANGUINEA (AQUI VARIA, TE LO EXPLICO POR AUDIO)",
+                "referenceValues": "23",
+                "cost": 400,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:56:06.985Z",
+                "__v": 0
+            },
+            {
+                "_id": "662972238f81f21e2a5a6ad2",
+                "code": "SD2321AS",
+                "name": "GRUPO SANGUINEO Y FACTOR RH",
+                "referenceValues": "5",
+                "cost": 888,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:57:07.047Z",
+                "__v": 0
+            },
+            {
+                "_id": "662973208f81f21e2a5a6b08",
+                "code": "RTR33423",
+                "name": "SIFILIS PRUEBA RAPIDA",
+                "referenceValues": "33",
+                "cost": 33,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T21:01:20.817Z",
+                "__v": 0
+            },
+            {
+                "_id": "662973368f81f21e2a5a6b0d",
+                "code": "GH443534",
+                "name": "HIV PRUEBA RAPIDA",
+                "referenceValues": "w34",
+                "cost": 788,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T21:01:42.444Z",
+                "__v": 0
+            }
+        ],
+        "description": "Algo",
+        "creationDate": "2024-04-25T04:25:58.680Z"
+    },
+    {
+        "_id": "6629dc163c13caac27ed5fd9",
+        "code": "455DSDDHJJ",
+        "name": "PRENUCPCIALES (PARA BODAS)",
+        "cost": 3000,
+        "studies": [
+            {
+                "_id": "662972238f81f21e2a5a6ad2",
+                "code": "SD2321AS",
+                "name": "GRUPO SANGUINEO Y FACTOR RH",
+                "referenceValues": "5",
+                "cost": 888,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T20:57:07.047Z",
+                "__v": 0
+            },
+            {
+                "_id": "662973208f81f21e2a5a6b08",
+                "code": "RTR33423",
+                "name": "SIFILIS PRUEBA RAPIDA",
+                "referenceValues": "33",
+                "cost": 33,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T21:01:20.817Z",
+                "__v": 0
+            },
+            {
+                "_id": "662973368f81f21e2a5a6b0d",
+                "code": "GH443534",
+                "name": "HIV PRUEBA RAPIDA",
+                "referenceValues": "w34",
+                "cost": 788,
+                "description": null,
+                "active": true,
+                "creationDate": "2024-04-24T21:01:42.444Z",
+                "__v": 0
+            }
+        ],
+        "description": "para bodas",
+        "creationDate": "2024-04-25T04:29:10.998Z"
+    }
+]

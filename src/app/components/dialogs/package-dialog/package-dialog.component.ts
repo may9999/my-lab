@@ -11,14 +11,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-// export interface ClinicalStudyData {
-//   _id: string;
-//   code: string;
-//   name: string;
-//   referenceValues: string;
-//   cost: number;
-//   description: string;
-// }
+export interface PackageStudyData {
+  _id: string;
+  code: string;
+  name: string;
+  cost: number;
+  studies: Array<string>;
+  description: string;
+}
 @Component({
   selector: 'app-package-dialog',
   templateUrl: './package-dialog.component.html',
@@ -68,7 +68,6 @@ export class PackageDialogComponent implements OnInit {
         packageData.studies.push(pack._id);
       });
       // packageData.studies = this.data.package;
-      console.log(packageData);
       this.packageSvc.addPackage(packageData).subscribe(() => {
         this.close();
       })

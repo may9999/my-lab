@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment, localStoageKeys } from '../../../environments/environment';
-// import { ClinicalStudy } from '../models/clinical.study';
+import { PackageStudy } from '../models/package.study';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +10,12 @@ import { environment, localStoageKeys } from '../../../environments/environment'
 export class PackageStudiesService {
   constructor(private http: HttpClient) {}
 
-  // getClinicalStudies(status: string): Observable<any> { // actice - inactive
-  //   const headers = this.userHeaders();
-  //   return this.http.get<any>(`${environment.apiUrl}/studies?status=${status}`, { headers: headers });
-  // }
+  getPackageStudies(status: string): Observable<any> { // actice - inactive
+    const headers = this.userHeaders();
+    return this.http.get<any>(`${environment.apiUrl}/package?status=${status}`, { headers: headers });
+  }
 
-  addPackage(obj: any) {
+  addPackage(obj: PackageStudy) {
     const headers = this.adminHeaders();
     return this.http.post<any>(`${environment.apiUrl}/package`, obj, { headers: headers });
   }
