@@ -193,7 +193,8 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this,this.loadTable();
+      this.loadTable();
+      this.loadPackages();
     });
   }
 
@@ -211,6 +212,7 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
         this.clinicalSvc.activateStudy(study._id, status).subscribe(() => {
           this.selection.clear();
           this.loadTable();
+          this.loadPackages();
         });
       }
     }
