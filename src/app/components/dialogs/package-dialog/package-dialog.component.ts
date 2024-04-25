@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ClinicalStudiesService } from '../../services/clinical-studies.service';
+import { PackageStudiesService } from '../../services/package-studies.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -11,21 +11,21 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-export interface ClinicalStudyData {
-  _id: string;
-  code: string;
-  name: string;
-  referenceValues: string;
-  cost: number;
-  description: string;
-}
+// export interface ClinicalStudyData {
+//   _id: string;
+//   code: string;
+//   name: string;
+//   referenceValues: string;
+//   cost: number;
+//   description: string;
+// }
 @Component({
   selector: 'app-package-dialog',
   templateUrl: './package-dialog.component.html',
   styleUrls: ['./package-dialog.component.scss'],
 })
 export class PackageDialogComponent implements OnInit {
-  clinicalForm!: FormGroup;
+  packageForm!: FormGroup;
   // roleSelected!: string;
   // roleControl = new FormControl<any | null>(null, Validators.required);
   // matcher = new MyErrorStateMatcher();
@@ -34,7 +34,7 @@ export class PackageDialogComponent implements OnInit {
   // display = true;
   
   constructor(private dialogRef: MatDialogRef<PackageDialogComponent>,
-              private clinicalSvc: ClinicalStudiesService,
+              private packageSvc: PackageStudiesService,
               private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dialogRef.disableClose = true;
@@ -44,7 +44,7 @@ export class PackageDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {    
-    this.clinicalForm = new FormGroup({
+    this.packageForm = new FormGroup({
       code: new FormControl('', [Validators.required]),
       name:  new FormControl('', [Validators.required]),
       cost:  new FormControl('', [Validators.required, Validators.pattern('^[0-9]{1,5}(?:.[0-9]{1,2})?$')]),
@@ -61,41 +61,53 @@ export class PackageDialogComponent implements OnInit {
 
   onSubmit(): void {
      // Handle form submission here
-    if (this.clinicalForm.valid) {
-      // Additional logic to authenticate user or 
-      // perform other actions
+    if (this.packageForm.valid) {
+      const packageData = this.packageForm.value;
+      packageData.studies = [];
+      this.data.package.forEach((pack: any ) => {
+        packageData.studies.push(pack._id);
+      });
+      // packageData.studies = this.data.package;
+      console.log(packageData);
+      this.packageSvc.addPackage(packageData).subscribe(() => {
+        this.close();
+      })
 
 
-      // if (this.data.option === 'add') {
-      //   this.userService.addUser(this.userForm.value).subscribe({
-      //     next: () => {
-      //       this.close();
-      //     },
-      //     error: e => {
-      //       console.log(e.error);
-      //       this.snackBar.open('ERROR', e.error.message, {
-      //         duration: 5000 // 5 seconds
-      //       });
-      //     }
+      // // Additional logic to authenticate user or 
+      // // perform other actions
+
+
+      // // if (this.data.option === 'add') {
+      // //   this.userService.addUser(this.userForm.value).subscribe({
+      // //     next: () => {
+      // //       this.close();
+      // //     },
+      // //     error: e => {
+      // //       console.log(e.error);
+      // //       this.snackBar.open('ERROR', e.error.message, {
+      // //         duration: 5000 // 5 seconds
+      // //       });
+      // //     }
+      // //   });
+      // // } else 
+      // if (this.data.option === 'edit'){ // update user
+      //   this.clinicalSvc.updateStudy(this.packageForm.value, this.data.study._id).subscribe({
+      //    next: () => {
+      //     this.close();
+      //    }, 
+      //    error: e => {
+      //     console.log(e.error);
+      //     this.snackBar.open('ERROR', e.error.message, {
+      //       duration: 5000 // 5 seconds
+      //     });
+      //    } 
       //   });
-      // } else 
-      if (this.data.option === 'edit'){ // update user
-        this.clinicalSvc.updateStudy(this.clinicalForm.value, this.data.study._id).subscribe({
-         next: () => {
-          this.close();
-         }, 
-         error: e => {
-          console.log(e.error);
-          this.snackBar.open('ERROR', e.error.message, {
-            duration: 5000 // 5 seconds
-          });
-         } 
-        });
-      } else {
-        this.snackBar.open('ERROR', 'Invalid Option', {
-          duration: 5000 // 5 seconds
-        });
-      }
+      // } else {
+      //   this.snackBar.open('ERROR', 'Invalid Option', {
+      //     duration: 5000 // 5 seconds
+      //   });
+      // }
     }
   }
 
