@@ -4,7 +4,7 @@
 	  <mat-card>
 		  <mat-card-header>
 			<div mat-card-avatar class="example-header-image"></div>
-			<mat-card-title class="car-title-color">CLINICAL STUDIES </mat-card-title>
+			<mat-card-title class="car-title-color">ESTUDIOS CLINICOS </mat-card-title>
 		  </mat-card-header>
 		  <br />
 		  <form class="form" [formGroup]="clinicalForm" (ngSubmit)="onSubmit()">
@@ -134,5 +134,65 @@
 			<!-- <button mat-raised-button color="primary" type = "button" (click)="openLoginDialog()">Add Order</button> -->
 		  </mat-card-actions>
 	  </mat-card>
+	</div>
+	<div class="col-xs-12 col-sm-12">
+		<mat-card>
+			<mat-card-header>
+			  <div mat-card-avatar class="example-header-image"></div>
+			  <mat-card-title class="car-title-color">PAQUETES</mat-card-title>
+			</mat-card-header>
+			<!-- <mat-card-content> -->
+				<mat-form-field>
+					<mat-label>Filtro</mat-label>
+					<input matInput (keyup)="packageApplyFilter($event)" placeholder="" #input>
+				</mat-form-field>
+
+				<div class="mat-elevation-z8">
+					<table mat-table [dataSource]="packageDataSource" matSort>
+						<!-- Code Column -->
+						<ng-container matColumnDef="code">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Clave </th>
+							<td mat-cell *matCellDef="let row">
+								<button mat-button color="primary" (click)="editClinicalStudy(row)">
+									{{ row.code }}
+								</button>
+							</td>
+						</ng-container>
+
+						<!-- Name Column -->
+						<ng-container matColumnDef="name">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+							<td mat-cell *matCellDef="let row"> {{ row.name }} </td>
+						</ng-container>
+
+						<!-- cost Column -->
+						<ng-container matColumnDef="cost">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Costo </th>
+							<td mat-cell *matCellDef="let row"> {{ row.cost }} </td>
+						</ng-container>
+
+						<!-- cost Column -->
+						<ng-container matColumnDef="studies">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Estudios </th>
+							<td mat-cell *matCellDef="let row"> 
+								<div *ngFor="let pack of row.studies, let i = index">
+									{{ pack.name }} 
+								</div>								
+							</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="packageDisplayedColumns"></tr>
+						<tr mat-row *matRowDef="let row; columns: packageDisplayedColumns;"></tr>
+					
+						<!-- Row shown when there is no matching data. -->
+						<tr class="mat-row" *matNoDataRow>
+							<td class="mat-cell" colspan="4">No se encontraron datos con este valor "{{input.value}}"</td>
+						</tr>
+					</table>
+					<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+				</div>
+			<!-- </mat-card-content> -->
+			<br />
+		</mat-card>
 	</div>
 </div>

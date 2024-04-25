@@ -19,6 +19,14 @@ export interface ClinicalStudyData {
   cost: number;
   description: string;
 }
+export interface packageStudyData {
+  _id: string;
+  code: string;
+  name: string;
+  cost: number;
+  studies: Array<any>;
+  description: string;
+}
 @Component({
   selector: 'app-clinical-studies',
   templateUrl: './clinical-studies.component.html',
@@ -32,6 +40,13 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   selection = new SelectionModel<ClinicalStudyData>(true, []);
+
+  packageDisplayedColumns: string[] = ['code', 'name', 'cost', 'studies'];
+  packageDataSource!: MatTableDataSource<packageStudyData>;
+  @ViewChild(MatPaginator) packagePaginator!: MatPaginator;
+  @ViewChild(MatSort) packageSort!: MatSort;
+  // packageSelection = new SelectionModel<packageStudyData>(true, []);
+
 
   constructor(private clinicalSvc: ClinicalStudiesService, 
               private packageSvc: PackageStudiesService,
@@ -92,6 +107,15 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  packageApplyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.packageDataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.packageDataSource.paginator) {
+      this.packageDataSource.paginator.firstPage();
     }
   }
 
@@ -188,8 +212,13 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   }
 
   loadPackages() {
+    // this.packageSvc.getPackageStudies('active').subscribe(response => {
+    //   console.log(response);
+    // });
     this.packageSvc.getPackageStudies('active').subscribe(response => {
-      console.log(response);
+      this.packageDataSource = new MatTableDataSource(response);
+      this.packageDataSource.paginator = this.packagePaginator;
+      this.packageDataSource.sort = this.packageSort;
     });
   }
 }
