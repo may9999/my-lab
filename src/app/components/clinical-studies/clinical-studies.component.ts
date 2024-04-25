@@ -19,7 +19,7 @@ export interface ClinicalStudyData {
   cost: number;
   description: string;
 }
-export interface packageStudyData {
+export interface PackageStudyData {
   _id: string;
   code: string;
   name: string;
@@ -41,11 +41,12 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   selection = new SelectionModel<ClinicalStudyData>(true, []);
 
-  packageDisplayedColumns: string[] = ['code', 'name', 'cost', 'studies'];
-  packageDataSource!: MatTableDataSource<packageStudyData>;
+  public packageActive: boolean = true;
+  packageDisplayedColumns: string[] = ['select', 'code', 'name', 'cost', 'studies'];
+  packageDataSource!: MatTableDataSource<PackageStudyData>;
   @ViewChild(MatPaginator) packagePaginator!: MatPaginator;
   @ViewChild(MatSort) packageSort!: MatSort;
-  // packageSelection = new SelectionModel<packageStudyData>(true, []);
+  packageSelection = new SelectionModel<PackageStudyData>(true, []);
 
 
   constructor(private clinicalSvc: ClinicalStudiesService, 
@@ -148,6 +149,35 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
   }
 
+  /** Whether the number of selected elements matches the total number of rows. */
+  isPackageAllSelected() {
+    const numSelected = this.packageSelection.selected.length;
+    if (this.packageDataSource) {
+      const numRows = this.packageDataSource.data.length;
+      return numSelected === numRows;
+    } else {
+      return false;
+    }
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllPackageRows() {
+    if (this.isPackageAllSelected()) {
+      this.packageSelection.clear();
+      return;
+    }
+
+    this.packageSelection.select(...this.packageDataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxPackageLabel(row?: PackageStudyData): string {
+    if (!row) {
+      return `${this.isPackageAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.packageSelection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
+  }
+
   editClinicalStudy(study: ClinicalStudyData): void {
     this.loadDialog('edit', study);
   }
@@ -168,20 +198,17 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   }
 
   inactivate(): void {
-    if (this.selection.hasValue()) {
-      for (const study of this.selection.selected) {
-        this.clinicalSvc.activateStudy(study._id, false).subscribe(() => {
-          this.selection.clear();
-          this.loadTable();
-        });
-      }
-    }
+    this.activateStudies(false);
   }
 
   activate(): void {
+    this.activateStudies(true);
+  }
+
+  activateStudies(status: boolean) {
     if (this.selection.hasValue()) {
       for (const study of this.selection.selected) {
-        this.clinicalSvc.activateStudy(study._id, true).subscribe(() => {
+        this.clinicalSvc.activateStudy(study._id, status).subscribe(() => {
           this.selection.clear();
           this.loadTable();
         });
@@ -212,13 +239,35 @@ export class ClinicalStudiesComponent implements OnInit, AfterViewInit {
   }
 
   loadPackages() {
-    // this.packageSvc.getPackageStudies('active').subscribe(response => {
-    //   console.log(response);
-    // });
-    this.packageSvc.getPackageStudies('active').subscribe(response => {
+    const status = this.packageActive ? 'active' : 'inactive';
+
+    this.packageSvc.getPackageStudies(status).subscribe(response => {
       this.packageDataSource = new MatTableDataSource(response);
       this.packageDataSource.paginator = this.packagePaginator;
       this.packageDataSource.sort = this.packageSort;
     });
+  }
+
+  activatePackage() {
+    this.activatePack(true);
+  }
+
+  inactivatePackage() {
+    this.activatePack(false);
+  }
+
+  private activatePack(status: boolean) {
+    if (this.packageSelection.hasValue()) {
+      for (const study of this.packageSelection.selected) {
+        this.packageSvc.activatePackage(study._id, status).subscribe(() => {
+          this.packageSelection.clear();
+          this.loadPackages();
+        });
+      }
+    }
+  }
+
+  packageStudiesStatus() {
+    this.loadPackages();
   }
 }
